@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
     
     <script>
         tailwind.config = {
@@ -422,6 +423,7 @@
     <script>
         const API_URL = "https://archon-glyca-backend.onrender.com";
         let modalTimer;
+
         // ============= 01: INITIALIZATION & AUTH =============
         window.addEventListener('load', () => {
             updateNavbarAuth(); // Unified logic from main page
@@ -444,8 +446,9 @@
             // Check login status for redirection
             if (!localStorage.getItem('userId')) {
                 showModal("PLEASE LOGIN", "Please log in to continue. We are sending you to the login page...", true);
-                document.getElementById('modalActionButton').classList.add('hidden');
-                setTimeout(() => { window.location.href = "login.html"; }, 4000);
+                const actionBtn = document.getElementById('modalActionButton');
+                if (actionBtn) actionBtn.classList.add('hidden');
+                setTimeout(() => { window.location.href = "login.html"; }, 1500);
             }
         });
 
@@ -487,7 +490,7 @@
             }
         }
 
-        // ============= 03: MODAL & UI LOGIC =============
+        // ============= 03: MODAL & UI LOGIC (Fixed Progress Bar) =============
         function showLoadingModal(title, message) {
             const modal = document.getElementById('customModal');
             const card = document.getElementById('modalCard');
@@ -503,18 +506,24 @@
 
         function showSuccessModal(title, message) {
             const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressBarContainer');
+            
             document.getElementById('modalLoader').classList.add('hidden');
             document.getElementById('modalIconContainer').classList.remove('hidden');
-            document.getElementById('progressBarContainer').classList.remove('hidden');
-            document.getElementById('modalActionButton').classList.remove('hidden');
+            if (progressContainer) progressContainer.classList.remove('hidden');
+            
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalBody').innerText = message;
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '100%';
-            setTimeout(() => {
-                progressBar.style.transition = 'width 3000ms linear';
-                progressBar.style.width = '0%';
-            }, 50);
+
+            if (progressBar) {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '100%';
+                progressBar.offsetHeight; // Force reflow
+                setTimeout(() => {
+                    progressBar.style.transition = 'width 3000ms linear';
+                    progressBar.style.width = '0%';
+                }, 50);
+            }
             modalTimer = setTimeout(closeModal, 3000);
         }
 
@@ -523,22 +532,31 @@
             const card = document.getElementById('modalCard');
             const titleEl = document.getElementById('modalTitle');
             const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressBarContainer');
+
             titleEl.innerText = title;
             document.getElementById('modalBody').innerText = message;
-            document.getElementById('modalActionButton').classList.add('hidden');
-            document.getElementById('modalLoader').classList.add('hidden');
-            document.getElementById('modalIconContainer').classList.remove('hidden');
-            document.getElementById('progressBarContainer').classList.remove('hidden');
+            
+            if (progressContainer) progressContainer.classList.remove('hidden');
+            if (progressBar) {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '100%';
+            }
+
             if (isError) titleEl.classList.add('text-red-500');
             else titleEl.classList.remove('text-red-500');
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '100%';
-            setTimeout(() => {
-                progressBar.style.transition = 'width 3000ms linear';
-                progressBar.style.width = '0%';
-            }, 50);
+
             modal.classList.remove('opacity-0', 'pointer-events-none');
             card.classList.replace('scale-90', 'scale-100');
+
+            setTimeout(() => {
+                if (progressBar) {
+                    progressBar.style.transition = 'width 3000ms linear';
+                    progressBar.style.width = '0%';
+                }
+            }, 100);
+
+            if (!isError) modalTimer = setTimeout(closeModal, 3000);
         }
 
         function closeModal() {
@@ -555,48 +573,72 @@
         }
 
         // ============= 04: FORM & INTERACTION =============
-        document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const userId = localStorage.getItem('userId');
-            if (!userId) {
-                showModal("PLEASE LOGIN", "Please log in so we can save your spot for a session.", true);
-                return;
-            }
-            showLoadingModal("ALMOST THERE", "We're saving your details and letting Coach Archana know.");
-            const formData = new FormData(this);
-            const payload = Object.fromEntries(formData.entries());
-            payload.userId = userId;
+        const appForm = document.getElementById('appointmentForm');
+        if (appForm) {
+            appForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const userId = localStorage.getItem('userId');
+                if (!userId) {
+                    showModal("PLEASE LOGIN", "Please log in so we can save your spot.", true);
+                    return;
+                }
+                showLoadingModal("ALMOST THERE", "We're saving your details and letting Coach Archana know.");
+                const formData = new FormData(this);
+                const payload = Object.fromEntries(formData.entries());
+                payload.userId = userId;
 
-            try {
-                const response = await fetch(`${API_URL}/api/booking/book`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (response.ok) showSuccessModal("Booking Confirmed", "Your spot is saved! Check your email.");
-                else showModal("OOPS!", "We couldn't save your booking right now.", true);
-            } catch (err) {
-                showModal("CONNECTION ISSUE", "Please check your internet.", true);
-            }
-        });
+                try {
+                    const response = await fetch(`${API_URL}/api/booking/book`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) showSuccessModal("Booking Confirmed", "Your spot is saved! Check your email.");
+                    else showModal("OOPS!", "We couldn't save your booking right now.", true);
+                } catch (err) {
+                    showModal("CONNECTION ISSUE", "Please check your internet.", true);
+                }
+            });
+        }
 
+        // ============= 05: GLOBAL UI LOGIC =============
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.getElementById('hamburger');
             const backdrop = document.getElementById('menuBackdrop');
+            if (!menu) return;
             const isOpen = menu.classList.contains('translate-x-0');
             if (isOpen) {
                 menu.classList.replace('translate-x-0', '-translate-x-full');
-                backdrop.classList.add('hidden');
-                hamburger.classList.remove('active');
+                if (backdrop) backdrop.classList.add('hidden');
+                if (hamburger) hamburger.classList.remove('active');
                 document.body.style.overflow = '';
             } else {
                 menu.classList.replace('-translate-x-full', 'translate-x-0');
-                backdrop.classList.remove('hidden');
-                hamburger.classList.add('active');
+                if (backdrop) backdrop.classList.remove('hidden');
+                if (hamburger) hamburger.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
         }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (nav) {
+                if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+                else nav.classList.remove('nav-scrolled');
+            }
+
+            const waBtn = document.querySelector('.whatsapp-float');
+            if (waBtn) {
+                if (window.scrollY > 300) {
+                    waBtn.style.opacity = '1';
+                    waBtn.style.pointerEvents = 'all';
+                } else {
+                    waBtn.style.opacity = '0';
+                    waBtn.style.pointerEvents = 'none';
+                }
+            }
+        });
 
         function handleLogout() {
             localStorage.removeItem('userId');
@@ -614,12 +656,6 @@
             });
         }
         window.addEventListener('click', () => { if (profileDropdown) profileDropdown.classList.add('hidden'); });
-
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
-        });
     </script>
 </body>
 </html>
