@@ -416,7 +416,7 @@
     <!-- JavaScript -->
     <script>
         // --- Configuration ---
-        const API_URL = "http://localhost:5000"; // API Endpoint Base URL
+        const API_URL = "https://archon-glyca-backend.vercel.app"; // API Endpoint Base URL
         let currentUserEmail = ""; // Stores the email address of the currently logging-in user
         let resendCountdown = 0;
         let resendInterval = null;
@@ -589,7 +589,7 @@
             toggleLoader(true, "Sending verification OTP...");
 
             try {
-                // API Endpoint: http://localhost:5000/api/auth/send-otp
+                // API Endpoint: https://archon-glyca-backend.vercel.app/api/auth/send-otp
                 const response = await fetch(`${API_URL}/api/auth/send-otp`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -673,7 +673,7 @@
             toggleLoader(true, "Verifying identity...");
 
             try {
-                // API Endpoint: http://localhost:5000/api/auth/verify-otp
+                // API Endpoint: https://archon-glyca-backend.vercel.app/api/auth/verify-otp
                 const response = await fetch(`${API_URL}/api/auth/verify-otp`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
