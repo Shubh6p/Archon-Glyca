@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tell Us About You | Your Fitness Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Space+Grotesk:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .text-volt {
+            color: #E1FF00;
+        }
+
+        .bg-volt {
+            background-color: #E1FF00;
+        }
+
+        .border-volt {
+            border-color: #E1FF00;
+        }
+
+        .glow-yellow {
+            box-shadow: 0 0 20px rgba(225, 255, 0, 0.2);
+        }
+
+        input,
+        select,
+        textarea {
+            background-color: #121212 !important;
+            border: 1px solid #222 !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #E1FF00 !important;
+            background-color: #1a1a1a !important;
+            outline: none;
+            box-shadow: 0 0 10px rgba(225, 255, 0, 0.1);
+        }
+
+        .protocol-section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #080808 !important;
+            border-color: #1a1a1a !important;
+            color: #666 !important;
+        }
+
+        /* ============= NAVBAR ENHANCEMENTS ============= */
+        .nav-scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(212, 255, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile menu animations */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-white selection:bg-accent selection:text-black preload">
+
+    <!-- ============= SCROLL PROGRESS BAR ============= -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ============= LOADER ============= -->
+    <div id="loader"
+        class="fixed inset-0 z-[200] bg-surface flex items-center justify-center transition-opacity duration-700"
+        role="status" aria-label="Loading">
+        <div class="flex flex-col items-center">
+            <div class="w-16 h-16 border-2 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <p class="mt-6 font-display tracking-[0.8em] text-[10px] font-bold text-accent animate-pulse uppercase">
+                LOADING YOUR PROFILE</p>
+        </div>
+    </div>
+
+    <!-- ============= NAVBAR ============= -->
+    <nav id="navbar"
+        class="fixed top-0 w-full z-[100] transition-all duration-700 px-8 py-8 flex justify-between items-center"
+        role="navigation" aria-label="Main navigation">
+        <div class="flex items-center gap-3 group cursor-pointer" onclick="backToHome()">
+            <div class="w-10 h-[2px] bg-accent transition-all group-hover:w-16"></div>
+            <a href="/home" class="font-display font-bold text-2xl tracking-tighter italic text-accent uppercase"
+                aria-label="ARCHON GLYCA Home">
+                ARCHON <span class="text-white">GLYCA</span>
+            </a>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex items-center gap-10">
+            <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[0.4em] text-white/50">
+                <a href="/home" class="hover:text-accent transition-all relative group">
+                    Home
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/about-coach" class="hover:text-accent transition-all relative group">
+                    About Coach
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/programs/" class="hover:text-accent transition-all relative group">
+                    Programs
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/home/#advice" class="hover:text-accent transition-all relative group">
+                    Tips & Advice
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/contact-us" class="hover:text-accent transition-all relative group">
+                    Contact
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/about-us" class="hover:text-accent transition-all relative group">
+                    About Us
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full"></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Hamburger Menu -->
+        <div class="lg:hidden hamburger" id="hamburger" onclick="toggleMobileMenu()" role="button"
+            aria-label="Toggle mobile menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav><br><br><br><br><br><br>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu"
+        class="mobile-menu fixed top-0 right-0 w-full h-screen bg-surface/98 backdrop-blur-2xl z-[90] lg:hidden"
+        role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <div class="flex flex-col items-center justify-center h-full gap-8 px-8">
+            <a href="#about-coach"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">About Coach</a>
+            <a href="#stories"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">Members Stories</a>
+            <a href="/programs/"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">Programs</a>
+            <a href="/home/#advice"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">Tips & Advice</a>
+            <a href="/contact-us"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">Contact</a>
+            <a href="/about-us"
+                class="text-2xl font-bold uppercase tracking-wider text-white/70 hover:text-accent transition-all"
+                onclick="toggleMobileMenu()">About Us</a>
+        </div>
+    </div>
+
+
+
+    <div class="max-w-4xl mx-auto">
+
+        <a href="/home"
+            class="text-[10px] font-bold text-accent uppercase tracking-[0.4em] mb-8 inline-block hover:tracking-[0.5em] transition-all">
+            <i class="fas fa-arrow-left mr-2"></i> Return to Home
+        </a>
+
+        <header class="text-center mb-10 relative">
+            <span
+                class="text-[9px] border border-volt text-volt px-4 py-1.5 rounded-full tracking-[0.3em] uppercase font-bold">Your
+                Personal Fitness Profile</span>
+
+            <h1 class="text-5xl md:text-7xl font-display font-bold italic mt-6 leading-none tracking-tighter uppercase">
+                GET STARTED <br> <span class="text-volt">WITH US.</span>
+            </h1>
+        </header>
+
+        <form id="bioDataForm">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="lg:col-span-2 bg-[#0A0A0A] border border-gray-900 rounded-[2rem] p-10">
+                    <div class="flex items-center gap-3 mb-10">
+                        <div class="h-[1px] w-8 bg-volt"></div>
+                        <h2 class="text-[10px] font-bold tracking-[0.3em] text-gray-400 uppercase">01 About You</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Full
+                                Name</label>
+                            <input type="text" name="fullName" placeholder="e.g. John Doe" class="w-full p-4 rounded-xl"
+                                required>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Contact
+                                Number</label>
+                            <input type="text" name="contactNumber" placeholder="+91..." class="w-full p-4 rounded-xl"
+                                required>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Age</label>
+                            <input type="number" name="age" placeholder="28" class="w-full p-4 rounded-xl" required>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label
+                                class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Gender</label>
+                            <select name="gender" class="w-full p-4 rounded-xl appearance-none cursor-pointer" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Height
+                                (CM)</label>
+                            <input type="number" name="heightCm" placeholder="175" class="w-full p-4 rounded-xl"
+                                required>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Weight
+                                (KG)</label>
+                            <input type="number" name="weightKg" placeholder="72" class="w-full p-4 rounded-xl"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-volt text-black rounded-[2rem] p-10 flex flex-col justify-between glow-yellow border border-volt relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-display font-bold italic leading-[0.8] mb-6 uppercase">Your Journey
+                            <br> Starts Here.</h2>
+                        <p class="text-[11px] leading-relaxed font-bold uppercase opacity-80">
+                            Every detail helps us create a workout plan that's perfect for YOU and YOUR goals.
+                        </p>
+                    </div>
+                    <i class="fas fa-fingerprint text-[8rem] absolute -bottom-4 -right-4 opacity-10"></i>
+                </div>
+            </div>
+
+            <div class="bg-[#0A0A0A] border border-gray-900 rounded-[2rem] p-10 mb-8">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="h-[1px] w-8 bg-volt"></div>
+                    <h2 class="text-[10px] font-bold tracking-[0.3em] text-gray-400 uppercase">02 Your Fitness Goal</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">What's Your
+                            Main Goal?</label>
+                        <select id="protocolSelector" name="primaryGoal"
+                            class="w-full p-4 rounded-xl appearance-none cursor-pointer text-volt font-bold uppercase tracking-widest text-[11px]"
+                            required>
+                            <option value="" selected disabled>Choose Your Goal</option>
+                            <option value="fat-loss">Fat Loss</option>
+                            <option value="weight-loss">Weight Loss</option>
+                            <option value="diabetic">Manage Diabetes</option>
+                            <option value="strength">Full Body Strength</option>
+                            <option value="hiit">HIIT (High Intensity)</option>
+                            <option value="yoga">Yoga</option>
+                            <option value="aerobics">Aerobics</option>
+                            <option value="kettlebell">Kettlebell Training</option>
+                            <option value="zumba">Zumba</option>
+                            <option value="pilates">Pilates</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1">Fitness
+                            Experience</label>
+                        <select name="experienceLevel"
+                            class="w-full p-4 rounded-xl appearance-none cursor-pointer text-[11px] uppercase tracking-widest font-bold"
+                            required>
+                            <option value="">Select Level</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced / Elite">Advanced / Elite</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="fat-loss-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Body Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <input type="number" name="targetWeightKg" placeholder="Target weight (kg)"
+                            class="p-4 rounded-xl">
+                        <input type="number" name="waistCm" placeholder="Waist (cm)" class="p-4 rounded-xl">
+                        <input type="number" name="hipCm" placeholder="Hip (cm)" class="p-4 rounded-xl">
+                        <input type="number" name="bodyFatPercentage" placeholder="Body fat % (if known)"
+                            class="p-4 rounded-xl">
+                    </div>
+                </div>
+
+                <div id="weight-loss-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">
+                        Weight Loss Details
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="number" name="currentWeight" placeholder="Current weight (kg)"
+                            class="p-4 rounded-xl">
+
+                        <input type="number" name="targetWeight" placeholder="Target weight (kg)"
+                            class="p-4 rounded-xl">
+
+                        <input type="text" name="weightDuration"
+                            placeholder="How long have you been trying to lose weight?" class="p-4 rounded-xl">
+
+                        <select name="activityLevel" class="p-4 rounded-xl">
+                            <option disabled selected>Daily activity level</option>
+                            <option value="Low">Low (mostly sitting)</option>
+                            <option value="Moderate">Moderate (some movement)</option>
+                            <option value="High">Active</option>
+                        </select>
+
+                        <select name="previousAttempts" class="p-4 rounded-xl">
+                            <option disabled selected>Have you tried weight loss before?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                        <select name="dietPreference" class="p-4 rounded-xl">
+                            <option disabled selected>Diet preference</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Non-Vegetarian">Non-Vegetarian</option>
+                            <option value="Eggetarian">Eggetarian</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div id="diabetic-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Diabetes Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="diabetesType" class="p-4 rounded-xl">
+                            <option disabled selected>Type of diabetes</option>
+                            <option value="Type 1">Type 1</option>
+                            <option value="Type 2">Type 2</option>
+                            <option value="Pre-diabetic">Pre-diabetic</option>
+                        </select>
+                        <input type="text" name="diagnosisDate"
+                            placeholder="When were you diagnosed? (e.g. 2 years ago)" class="p-4 rounded-xl">
+                        <input type="number" name="fastingSugar" placeholder="Fasting sugar level (mg/dL)"
+                            class="p-4 rounded-xl">
+                        <input type="number" name="postMealSugar" placeholder="Sugar after meals (mg/dL)"
+                            class="p-4 rounded-xl">
+                        <input type="number" step="0.1" name="hba1c" placeholder="HbA1c (if known)"
+                            class="p-4 rounded-xl">
+                        <input type="text" name="bloodPressure" placeholder="Blood pressure (e.g. 120/80)"
+                            class="p-4 rounded-xl">
+                        <select name="familyHistory" class="p-4 rounded-xl">
+                            <option disabled selected>Diabetes in your family?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="strength-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Your Workout
+                        Space</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="gymAccess" class="p-4 rounded-xl">
+                            <option disabled selected>Do you have gym access?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <input type="text" name="homeEquipment" placeholder="Home equipment (Dumbbells/Bands etc.)"
+                            class="p-4 rounded-xl">
+                    </div>
+                </div>
+
+                <div id="hiit-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Your Fitness
+                        Level</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="cardioEndurance" class="p-4 rounded-xl">
+                            <option disabled selected>How's your stamina?</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                        <select name="canDoPushups" class="p-4 rounded-xl">
+                            <option disabled selected>Can you do Push-ups?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <select name="canDoSquats" class="p-4 rounded-xl">
+                            <option disabled selected>Can you do Squats?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <input type="number" name="maxPlankSeconds"
+                            placeholder="How long can you hold a plank? (seconds)" class="p-4 rounded-xl">
+                    </div>
+                </div>
+
+                <div id="yoga-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">What You Want
+                        From Yoga</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase font-bold text-gray-600">Yoga Goals</label>
+                            <input type="text" name="yogaGoals" placeholder="e.g. Flexibility, Stress relief"
+                                class="w-full p-4 rounded-xl">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase font-bold text-gray-600">Any Body Issues?</label>
+                            <input type="text" name="physicalLimits" placeholder="e.g. Back pain, Stiff joints"
+                                class="w-full p-4 rounded-xl">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="aerobics-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Movement
+                        Coordination & Limits Balance</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="canJog5Mins" class="p-4 rounded-xl">
+                            <option disabled selected>Jog for 5 minutes?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <select name="coordinationLevel" class="p-4 rounded-xl">
+                            <option disabled selected>How's your coordination?</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                        <select name="kneeBalanceIssues" class="p-4 rounded-xl">
+                            <option disabled selected>Any knee or balance issues?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="kettlebell-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Kettlebell
+                        Background</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="usedKettlebellsBefore" class="p-4 rounded-xl">
+                            <option disabled selected>Ever used kettlebells before?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <input type="number" name="preferredWeightKg" placeholder="Weight you usually work with (kg)"
+                            class="p-4 rounded-xl">
+                        <select name="gripStrength" class="p-4 rounded-xl">
+                            <option disabled selected>How's your grip strength?</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="zumba-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">
+                        Zumba Details
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select name="zumbaGoal" class="p-4 rounded-xl">
+                            <option disabled selected>What is your main goal?</option>
+                            <option value="Weight Loss">Weight loss</option>
+                            <option value="Fitness">General fitness</option>
+                            <option value="Fun">Fun & movement</option>
+                        </select>
+
+                        <select name="preferredIntensity" class="p-4 rounded-xl">
+                            <option disabled selected>Preferred intensity</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+
+                        <select name="sessionFrequency" class="p-4 rounded-xl">
+                            <option disabled selected>Sessions per week</option>
+                            <option value="2">2 days</option>
+                            <option value="3">3 days</option>
+                            <option value="4">4 days</option>
+                            <option value="5">5 days</option>
+                        </select>
+
+                        <select name="musicPreference" class="p-4 rounded-xl">
+                            <option disabled selected>Music preference</option>
+                            <option value="Bollywood">Bollywood</option>
+                            <option value="International">International</option>
+                            <option value="Mix">Mix</option>
+                        </select>
+
+                        <select name="injuryIssues" class="p-4 rounded-xl">
+                            <option disabled selected>Any injury or pain?</option>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div id="pilates-fields" class="protocol-section border-t border-gray-900 pt-10 mb-10">
+                    <h3 class="text-volt font-bold text-[10px] tracking-[0.4em] uppercase mb-8 italic">Your Pilates
+                        Goals</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" name="pilatesGoals"
+                            placeholder="Pilates Goals (e.g. Better Posture, Core Strength)" class="p-4 rounded-xl">
+                        <select name="postPregnancyPelvicIssues" class="p-4 rounded-xl">
+                            <option disabled selected>Post-pregnancy or Pelvic concerns?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-10 border-t border-gray-900 pt-10">
+                    <label class="block text-[9px] font-bold text-gray-500 mb-4 uppercase tracking-[0.3em] ml-1">Past
+                        Injuries or Health Issues</label>
+                    <textarea name="pastInjuries" rows="4"
+                        placeholder="Tell us about any injuries, ongoing pain, or health concerns..."
+                        class="w-full p-6 rounded-[1.5rem] resize-none"></textarea>
+                </div>
+            </div>
+
+
+            <button type="submit" id="actionBtn"
+                class="w-full bg-volt text-black font-black uppercase italic py-6 rounded-full flex items-center justify-center gap-3 hover:opacity-90 transition-all text-xl tracking-[0.2em] shadow-xl">
+                <span id="btnText">Start My Journey</span>
+                <i id="btnIcon" class="fas fa-chevron-right text-sm"></i>
+            </button>
+        </form>
+
+        <div id="customModal"
+            class="fixed inset-0 z-[300] flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-500">
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
+
+            <div id="modalCard"
+                class="bg-card border border-white/10 w-full max-w-sm rounded-[2.5rem] p-10 relative z-10 text-center glow-yellow scale-90 transition-all duration-500 overflow-hidden">
+                <div id="modalIconContainer"
+                    class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 bg-accent/10 border border-accent/20">
+                    <i id="modalIcon" class="fas fa-check text-accent text-xl"></i>
+                </div>
+
+                <h3 id="modalTitle"
+                    class="text-2xl font-display font-bold italic uppercase tracking-tighter mb-2 text-white">Profile
+                    Saved!</h3>
+
+                <p id="modalBody"
+                    class="text-white/40 text-[10px] font-bold uppercase tracking-widest italic leading-relaxed mb-8">
+                    Great! Your information is saved. Let's plan your fitness journey together.
+                </p>
+
+                <button onclick="closeModal()"
+                    class="w-full bg-accent text-black font-black py-4 rounded-full uppercase text-[10px] tracking-[0.2em] hover:shadow-[0_10px_30px_rgba(225,255,0,0.4)] transition-all active:scale-95 relative z-10">
+                    Close
+                </button>
+
+                <div id="progressBarContainer" class="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+                    <div id="progressBar" class="h-full bg-accent transition-all duration-[3000ms] ease-linear w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br><br><br><br>
+
+
+    <!-- ============= FOOTER ============= -->
+    <footer
+        class="bg-[#020202] pt-24 sm:pt-32 pb-8 sm:pb-12 px-4 sm:px-8 border-t border-white/5 relative overflow-hidden"
+        role="contentinfo">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent">
+        </div>
+
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-12 gap-6 sm:gap-12 mb-16 sm:mb-20">
+
+                <div class="col-span-12 lg:col-span-4 space-y-6 sm:space-y-8">
+                    <div class="flex items-center gap-3 group cursor-pointer" onclick="backToHome()">
+                        <div class="w-10 sm:w-12 h-[2px] bg-accent transition-all group-hover:w-14 sm:group-hover:w-16">
+                        </div>
+                        <span
+                            class="font-display font-bold text-2xl sm:text-3xl tracking-tighter italic text-accent uppercase">Archana<span
+                                class="text-white">Sah</span></span>
+                    </div>
+                    <p class="text-white/40 text-sm leading-relaxed italic max-w-sm">
+                        Your online fitness platform helping people control diabetes, lose weight, and live healthier
+                        through home-based workouts and expert coaching.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                        </span>
+                        <span
+                            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-accent/60 italic">We're
+                            Open: Accepting New Clients</span>
+                    </div>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Quick Links</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/about-coach"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Coach
+                                Profile</a></li>
+                        <li><a href="/programs/"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Our Programs</a>
+                        </li>
+                        <li><a href="/home/#stories"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Members
+                                Stories</a></li>
+                        <li><a href="/home/#advice"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Tips &
+                                Advice</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Legal</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/privacy-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Privacy
+                                Policy</a></li>
+                        <li><a href="/terms-and-conditions"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Terms of
+                                Service</a></li>
+                        <li><a href="/refund-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Refund
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div
+                    class="col-span-12 lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Connect With Us</h4>
+
+                    <div class="flex justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <a href="https://www.facebook.com/archana.sah.524"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.instagram.com/archusah9"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@fitwitharchu"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="YouTube">
+                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://in.linkedin.com/in/archana-kumari-sah-b6b8a3165"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">
+                        Contact: info@archonglyca.com</p>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-white/5 pt-8 sm:pt-12 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
+                <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">© 2025
+                    ARCHON GLYCA. All Rights Reserved.</p>
+                <p class="text-[9px] sm:text-[10px] text-white/10 italic">Helping you get fit and healthy from home</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#E1FF00', // Your brand Volt color
+                        card: '#0A0A0A'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+                }
+            }
+        }
+
+        const API_URL = "https://archon-glyca-backend.vercel.app";
+        const protocolSelector = document.getElementById('protocolSelector');
+        const sections = document.querySelectorAll('.protocol-section');
+        const bioForm = document.getElementById('bioDataForm');
+
+        let isEditMode = false;
+        let hasProfile = false;
+        let modalTimer;
+
+        // --- 01: UI Logic - Toggle Protocol Sections ---
+        protocolSelector.addEventListener('change', function () {
+            sections.forEach(section => section.style.display = 'none');
+            const selectedValue = this.value;
+            if (selectedValue) {
+                const targetSection = document.getElementById(selectedValue + '-fields');
+                if (targetSection) targetSection.style.display = 'block';
+            }
+        });
+
+        // --- 02: UI Logic - Lock/Unlock & Button UI ---
+        function setFieldsDisabled(disabled) {
+            const elements = bioForm.querySelectorAll('input, select, textarea');
+            elements.forEach(el => el.disabled = disabled);
+        }
+
+        function updateButtonUI(text, iconClass) {
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+            if (btnText) btnText.innerText = text;
+            if (btnIcon) btnIcon.className = `fas ${iconClass} text-sm`;
+        }
+
+        // --- 03: Data Logic - Autofill Form ---
+        function fillFormData(data) {
+            const coreFields = ['fullName', 'contactNumber', 'age', 'gender', 'heightCm', 'weightKg', 'primaryGoal', 'experienceLevel', 'pastInjuries'];
+
+            // Fill Core Fields
+            coreFields.forEach(field => {
+                if (data[field]) {
+                    const input = bioForm.querySelector(`[name="${field}"]`);
+                    if (input) input.value = data[field];
+                }
+            });
+
+            // Trigger Protocol Display
+            if (data.primaryGoal) {
+                protocolSelector.value = data.primaryGoal;
+                protocolSelector.dispatchEvent(new Event('change'));
+            }
+
+            // Fill Nested Protocol Details
+            if (data.protocolDetails) {
+                Object.keys(data.protocolDetails).forEach(key => {
+                    const input = bioForm.querySelector(`[name="${key}"]`);
+                    if (input) input.value = data.protocolDetails[key];
+                });
+            }
+        }
+
+        async function autofillProfile() {
+            const userId = localStorage.getItem('userId');
+            if (!userId) return;
+
+            try {
+                const response = await fetch(`${API_URL}/api/user/${userId}`);
+                if (!response.ok) return;
+
+                const data = await response.json();
+
+                if (data && data.isProfileComplete) {
+                    hasProfile = true;
+                    isEditMode = false;
+                    fillFormData(data);
+                    setFieldsDisabled(true);
+                    updateButtonUI("Edit Profile", "fa-user-edit");
+                } else {
+                    hasProfile = false;
+                    isEditMode = true;
+                    setFieldsDisabled(false);
+                    updateButtonUI("Save Details", "fa-chevron-right");
+                }
+            } catch (err) {
+                console.error("Server Access Error:", err);
+            }
+        }
+
+        // --- 04: Modal Logic ---
+        function showModal(title, message, isError = false) {
+            const modal = document.getElementById('customModal');
+            const card = document.getElementById('modalCard');
+            const titleEl = document.getElementById('modalTitle');
+            const bodyEl = document.getElementById('modalBody');
+            const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressBarContainer');
+
+            titleEl.innerText = title;
+            bodyEl.innerText = message;
+
+            // Reset Progress Bar immediately
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '100%';
+
+            if (isError) {
+                titleEl.classList.add('text-red-500');
+                progressContainer.classList.add('hidden');
+            } else {
+                titleEl.classList.remove('text-red-500');
+                progressContainer.classList.remove('hidden');
+            }
+
+            // ANIMATION IN
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.replace('scale-90', 'scale-100');
+
+            clearTimeout(modalTimer);
+            if (!isError) {
+                // Trigger shrinking bar after a tiny delay
+                setTimeout(() => {
+                    progressBar.style.transition = 'width 3000ms linear';
+                    progressBar.style.width = '0%';
+                }, 50);
+
+                modalTimer = setTimeout(() => {
+                    closeModal();
+                }, 3000);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            const card = document.getElementById('modalCard');
+            const title = document.getElementById('modalTitle').innerText;
+
+            // TRIGGER ANIMATION OUT
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.replace('scale-100', 'scale-90');
+
+            // Final Action after fade finishes
+            setTimeout(() => {
+                if (title === "PROFILE SYNCED" || title === "PROFILE AUTHORIZED") {
+                    window.location.href = "/home";
+                }
+            }, 500);
+        }
+
+        // --- 05: Unified Form Submission & Toggle Logic ---
+        bioForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Toggle Mode: If profile exists but we are locked, unlock it
+            if (hasProfile && !isEditMode) {
+                isEditMode = true;
+                setFieldsDisabled(false);
+                updateButtonUI("Update Profile", "fa-save");
+                return;
+            }
+
+            // Save/Update Logic
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                showModal("LOGIN EXPIRED", "Login Again. Redirecting to Login...", true);
+                setTimeout(() => window.location.href = "/login", 2000);
+                return;
+            }
+
+            const formData = new FormData(this);
+            const coreFields = ['fullName', 'contactNumber', 'age', 'gender', 'heightCm', 'weightKg', 'primaryGoal', 'experienceLevel', 'pastInjuries'];
+
+            const payload = {
+                userId: userId,
+                protocolDetails: {}
+            };
+
+            for (let [key, value] of formData.entries()) {
+                if (coreFields.includes(key)) {
+                    payload[key] = value;
+                } else if (value.trim() !== "") {
+                    payload.protocolDetails[key] = value;
+                }
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/user/complete-profile`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showModal("PROFILE UPDATED", "Your information has been successfully saved.");
+                    hasProfile = true;
+                    isEditMode = false;
+                    setFieldsDisabled(true);
+                    updateButtonUI("Edit Profile", "fa-user-edit");
+                } else {
+                    const errorData = await response.json();
+                    showModal("ERROR", errorData.message || "Data mismatch.", true);
+                }
+            } catch (err) {
+                console.error(err);
+                showModal("CONNECTION INTERRUPTED", "Server Connection Failed. Check Server Status.", true);
+            }
+        });
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 700);
+                document.body.classList.remove('preload');
+            }, 1500);
+        });
+
+        // ============= NAVBAR SCROLL BEHAVIOR =============
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+
+            lastScroll = currentScroll;
+
+            // Update scroll progress bar
+            updateScrollProgress();
+
+            // Show/hide back to top button
+            updateBackToTop();
+        });
+
+        // Initialize on Load
+        window.addEventListener('DOMContentLoaded', autofillProfile);
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>

@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Get fit at home with expert online fitness coaching from ARCHON GLYCA - Lose weight, reverse diabetes, and feel great!">
+    <title>ARCHON GLYCA | Your Online Fitness Coach for Home Workouts</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../whatsapp.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { accent: '#D4FF00', surface: '#050505', card: '#0F0F0F', border: '#1F1F1F' },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ============= ENHANCED ANIMATIONS ============= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays for sequential reveals */
+        .reveal.delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal.delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal.delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        /* ============= NAVBAR ENHANCEMENTS ============= */
+        .nav-scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(212, 255, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile menu animations */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* ============= SCROLL PROGRESS BAR ============= */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4FF00, #88ff00);
+            z-index: 9999;
+            transform-origin: left;
+            transition: width 0.1s ease-out;
+        }
+
+        /* ============= ENHANCED BUTTONS ============= */
+        .magnetic-btn {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple-effect 0.6s ease-out;
+        }
+
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* CTA pulse animation */
+        .cta-pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 255, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 255, 0, 0.4);
+            }
+        }
+
+        /* ============= CARD & IMAGE ENHANCEMENTS ============= */
+        .glass-card {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(15, 15, 15, 0.8);
+            border-color: rgba(212, 255, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .img-hover {
+            overflow: hidden;
+            border-radius: 2rem;
+        }
+
+        .img-hover img {
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .img-hover:hover img {
+            transform: scale(1.08);
+        }
+
+        /* ============= ARTICLE VIEW ============= */
+        #article-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #article-view.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .prose-custom p {
+            margin-bottom: 1.5rem;
+            color: #9ca3af;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .prose-custom h3 {
+            color: #D4FF00;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .prose-custom ul {
+            margin-bottom: 1.5rem;
+            list-style-type: none;
+        }
+
+        .prose-custom li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: #d1d5db;
+        }
+
+        .prose-custom li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #D4FF00;
+        }
+
+        /* ============= SCROLLBAR STYLING ============= */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 255, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 255, 0, 0.5);
+        }
+
+        /* ============= BACK TO TOP BUTTON ============= */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: #D4FF00;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(212, 255, 0, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(212, 255, 0, 0.5);
+        }
+
+        /* ============= COUNTER ANIMATION ============= */
+        .counter {
+            display: inline-block;
+        }
+
+        /* ============= PARALLAX EFFECT ============= */
+        .parallax-slow {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ============= FOCUS STATES (ACCESSIBILITY) ============= */
+        *:focus {
+            outline: 2px solid #D4FF00;
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus {
+            outline: 2px solid #D4FF00;
+            outline-offset: 4px;
+        }
+
+        /* ============= LOADING STATES ============= */
+        .skeleton {
+            background: linear-gradient(90deg, #0F0F0F 25%, #1F1F1F 50%, #0F0F0F 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ============= HAMBURGER MENU ANIMATION ============= */
+        .hamburger {
+            width: 28px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #D4FF00;
+            border-radius: 2px;
+            opacity: 1;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 9px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 9px;
+            transform: rotate(-135deg);
+        }
+
+        /* ============= ENHANCED TRANSITIONS ============= */
+        * {
+            transition-property: color, background-color, border-color, transform, opacity;
+            transition-duration: 0.2s;
+            transition-timing-function: ease;
+        }
+
+        /* Disable transitions during page load */
+        .preload * {
+            transition: none !important;
+        }
+
+        /* FAQ Section */
+        .faq-item-active .faq-content {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-item-active .vertical-line {
+            transform: rotate(90deg);
+            opacity: 0;
+        }
+
+        .faq-item-active .faq-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-text {
+            transform: translateY(10px);
+        }
+
+        /* Additional responsive tweaks */
+        @media (max-width: 640px) {
+            .nav-scrolled {
+                padding: 0.5rem 1rem;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .scroll-progress {
+                height: 2px;
+            }
+        }
+
+        /* ============= WHATSAPP FLOATING BUTTON ============= */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            /* Sits opposite to your 'Back to Top' button */
+            z-index: 998;
+            /* Just below modals but above standard content */
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* Ensure it doesn't overlap on very small screens */
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                bottom: 1.5rem;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-white selection:bg-accent selection:text-black preload">
+
+    <!-- ============= SCROLL PROGRESS BAR ============= -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ============= LOADER ============= -->
+    <div id="loader"
+        class="fixed inset-0 z-[200] bg-surface w-screen h-screen flex flex-col items-center justify-center transition-opacity duration-700"
+        role="status" aria-label="Loading">
+        <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 border-2 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <p
+                class="mt-6 font-display tracking-[0.8em] text-[10px] font-bold text-accent animate-pulse uppercase text-center">
+                LOADING YOUR FITNESS JOURNEY
+            </p>
+        </div>
+    </div>
+
+    <!-- ============= NAVBAR ============= -->
+    <nav id="navbar"
+        class="fixed top-0 w-full z-[100] transition-all duration-700 px-4 sm:px-8 py-4 sm:py-8 flex justify-between items-center bg-surface/80 backdrop-blur-xl border-b border-white/5">
+
+        <div class="lg:hidden hamburger" id="hamburger" onclick="toggleMobileMenu()" role="button"
+            aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-3 group cursor-pointer" onclick="backToHome()">
+            <div class="w-8 sm:w-10 h-[2px] bg-accent transition-all group-hover:w-12 sm:group-hover:w-16"></div>
+            <a href="/home"
+                class="font-display font-bold text-xl sm:text-2xl tracking-tighter italic text-accent uppercase">
+                ARCHON <span class="text-white">GLYCA</span>
+            </a>
+        </div>
+
+        <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
+            <a href="/home" class="font-display font-bold text-xl tracking-tighter italic text-accent uppercase">
+                ARCHON <span class="text-white">GLYCA</span>
+            </a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-6 xl:gap-10">
+            <div
+                class="flex gap-6 xl:gap-8 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] text-white/50">
+                <a href="#about-coach" class="hover:text-accent transition-all relative group">About Coach</a>
+                <a href="#stories" class="hover:text-accent transition-all relative group">Members Stories</a>
+                <a href="/programs/" class="hover:text-accent transition-all relative group">Programs</a>
+                <a href="#advice" class="hover:text-accent transition-all relative group">Tips & Advice</a>
+                <a href="/contact-us" class="hover:text-accent transition-all relative group">Contact</a>
+                <a href="/about-us" class="hover:text-accent transition-all relative group">About Us</a>
+            </div>
+            <div id="nav-auth-section" class="flex items-center gap-4 border-l border-white/10 pl-6 xl:pl-10"></div>
+        </div>
+
+        <div class="lg:hidden relative" id="mobile-profile-container">
+            <button id="profile-icon-btn"
+                class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center bg-accent/5 text-accent outline-none">
+                <i class="fas fa-user-circle text-xl"></i>
+            </button>
+
+            <div id="profile-dropdown"
+                class="hidden absolute top-full right-0 mt-3 w-48 bg-card border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-slideDown z-[120]">
+                <div id="mobile-profile-options">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileMenu"
+        class="fixed top-0 left-0 w-[80%] h-screen bg-surface border-r border-white/5 z-[110] transition-transform duration-500 -translate-x-full lg:hidden">
+        <div class="p-8 space-y-8 h-full flex flex-col overflow-y-auto">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
+                    <i class="fas fa-bolt text-black text-sm"></i>
+                </div>
+                <a class="font-display font-bold text-xl tracking-tighter italic text-accent uppercase">
+                    ARCHON <span class="text-white">GLYCA</span>
+                </a>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <a href="#about-coach"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all border-b border-white/5"
+                    onclick="toggleMobileMenu()">About Coach</a>
+                <a href="#stories"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all border-b border-white/5"
+                    onclick="toggleMobileMenu()">Member Stories</a>
+                <a href="/programs/"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all border-b border-white/5">Programs</a>
+                <a href="#advice"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all border-b border-white/5"
+                    onclick="toggleMobileMenu()">Tips</a>
+                <a href="/contact-us"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all">Contact
+                    Us</a>
+                <a href="/about-us"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all">About
+                    Us</a>
+
+            </div>
+
+            <div id="sidebar-auth-section" class="mt-auto pb-10">
+            </div>
+        </div>
+    </div>
+
+    <div id="menuBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[105] hidden lg:hidden"
+        onclick="toggleMobileMenu()"></div>
+
+
+    <!-- ============= MAIN CONTENT ============= -->
+    <main id="home-view" class="pt-20 sm:pt-24">
+        <!-- ============= HERO SECTION ============= -->
+        <section class="min-h-[90vh] md:h-screen flex items-center justify-center relative overflow-hidden">
+
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/40 to-surface z-10"></div>
+
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop"
+                alt="Home Fitness" id="heroImage"
+                class="absolute inset-0 w-full h-full object-cover opacity-60 scale-110 parallax-slow will-change-transform" />
+
+            <!-- Content Wrapper -->
+            <div class="z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+
+                <!-- Tag -->
+                <div
+                    class="reveal inline-block px-3 sm:px-4 py-1 mb-4 sm:mb-6 bg-black/40 border border-accent/20 rounded-full">
+                    <p class="font-display text-accent text-[9px] sm:text-[10px] tracking-[0.5em] uppercase">
+                        Smart Fitness & Lasting Results
+                    </p>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="reveal delay-100
+            text-4xl sm:text-5xl md:text-6xl lg:text-[9vw]
+            font-display font-bold tracking-tighter leading-[0.9]
+            max-w-[90%] md:max-w-none mx-auto">
+                    GET HEALTHY <br>
+                    <span class="text-accent italic">AT HOME.</span>
+                </h1>
+
+                <!-- Sub-Headline -->
+                <p class="reveal delay-200 mt-4 sm:mt-6 md:mt-8 mx-auto max-w-md
+            text-base sm:text-lg text-white/40 italic leading-relaxed">
+                    Personal guidance to control diabetes and lose weight through simple
+                    home workouts you can do from anywhere.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div
+                    class="reveal delay-300 mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+
+                    <!-- Primary CTA -->
+                    <a href="/appoitment" data-testid="book-free-session-btn" class="magnetic-btn cta-pulse
+                w-full sm:w-auto text-center
+                px-8 sm:px-10 md:px-12 py-3 sm:py-4 md:py-5
+                bg-accent text-black rounded-full
+                font-black text-xs uppercase tracking-widest
+                hover:shadow-[0_0_30px_rgba(212,255,0,0.3)]
+                transition-all">
+                        Book Your Free Session
+                    </a>
+
+                    <!-- Secondary CTA -->
+                    <a href="#programs" data-testid="explore-services-btn" class="magnetic-btn
+                w-full sm:w-auto text-center
+                px-8 sm:px-10 md:px-12 py-3 sm:py-4 md:py-5
+                border border-white/10 rounded-full
+                font-bold text-xs uppercase tracking-widest
+                hover:bg-white/5 transition-all">
+                        Explore Our Services
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============= ABOUT COACH SECTION ============= -->
+        <section id="about-coach"
+            class="py-16 sm:py-20 md:py-32 px-4 sm:px-8 max-w-[1400px] mx-auto border-b border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
+
+                <!-- IMAGE SECTION -->
+                <div class="reveal col-span-1 lg:col-span-5 relative group img-hover shadow-2xl">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="../assets/coach's-back.jpeg"
+                            class="w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[520px] object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+                            alt="Coach Archana Sah">
+                    </div>
+
+                    <!-- Badge -->
+                    <div class="absolute bottom-2 sm:bottom-4 lg:bottom-4 right-2 sm:right-4 lg:right-8
+                                bg-black/80 backdrop-blur-md border border-accent/30 px-3 sm:px-5 lg:px-6 py-2 sm:py-3 lg:py-4
+                                rounded-2xl flex items-center gap-2 sm:gap-3 lg:gap-4">
+                        <div
+                            class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-accent rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-black text-xs"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-[7px] sm:text-[8px] text-white/40 uppercase tracking-widest leading-none mb-1">
+                                Status</p>
+                            <p class="text-[9px] sm:text-[10px] text-white font-black uppercase tracking-widest">
+                                Verified Expert Coach</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TEXT SECTION -->
+                <div class="reveal col-span-1 lg:col-span-7 space-y-6 sm:space-y-8 md:space-y-10">
+
+                    <!-- Headings -->
+                    <div>
+                        <h2
+                            class="text-accent font-display text-[9px] md:text-[10px] font-bold uppercase tracking-[0.6em] mb-4">
+                            Your Expert Online Fitness Coach
+                        </h2>
+                        <h3
+                            class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tighter italic uppercase leading-none">
+                            Archana <span class="text-white/30 not-italic">Sah.</span>
+                        </h3>
+                    </div>
+
+                    <!-- Quote -->
+                    <p
+                        class="text-white/60 text-base sm:text-lg md:text-xl leading-relaxed italic border-l-2 border-accent/20 pl-4 sm:pl-6 md:pl-8">
+                        "Real fitness happens at home. My approach helps you with
+                        <span class="text-white font-bold">simple home exercises</span> and
+                        <span class="text-white font-bold">healthy eating habits</span>
+                        to reach your health goals and feel your best every day."
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-y border-white/10 py-8 sm:py-10 uppercase font-bold tracking-widest text-center sm:text-left">
+                        <div>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="10">0+</p>
+                            <p class="text-[9px] text-white/30">Years of Experience</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="15000">0+</p>
+                            <p class="text-[9px] text-white/30">Lives Changed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="94">0%</p>
+                            <p class="text-[9px] text-white/30">Happy Clients</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <a href="/about-coach"
+                            class="group flex items-center gap-3 sm:gap-4 text-white hover:text-accent transition-colors"
+                            data-testid="know-more-coach-link">
+                            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em]">
+                                Know More About Coach
+                            </span>
+                            <div
+                                class="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 border border-white/10 rounded-full flex items-center justify-center group-hover:border-accent transition-all">
+                                <i class="fas fa-arrow-right text-[9px] sm:text-[10px]"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============= Members Stories SECTION ============= -->
+        <section id="stories" class="py-24 sm:py-32 bg-[#080808] border-y border-border overflow-hidden">
+            <div class="px-4 sm:px-8 mb-16 sm:mb-20 flex justify-between items-end">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-display font-bold italic tracking-tighter uppercase">
+                    MEMBERS <span class="text-accent not-italic">STORIES.</span></h2>
+                <div
+                    class="text-right hidden md:block text-white/20 text-[10px] uppercase font-bold tracking-widest italic">
+                    Real Results from Real People</div>
+            </div>
+
+            <div class="flex gap-6 sm:gap-8 px-4 sm:px-8 overflow-x-auto no-scrollbar pb-8 sm:pb-12 cursor-grab active:cursor-grabbing"
+                id="storiesContainer" data-testid="stories-container">
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-[450px] p-1 glass-card rounded-[2rem] sm:rounded-[3rem] transition-all"
+                    data-testid="story-card-video">
+                    <div class="bg-card rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 h-full border border-white/5">
+                        <div class="flex justify-between mb-6 sm:mb-8">
+                            <h4 class="text-lg sm:text-xl font-bold italic text-accent uppercase">Member's Review</h4>
+                            <span
+                                class="text-[8px] font-black uppercase bg-accent/10 text-accent px-3 sm:px-4 py-1 rounded-full border border-accent/20">Video
+                                Review</span>
+                        </div>
+
+                        <p class="text-white/60 text-sm leading-relaxed mb-4 italic">
+                            See the real results of our home workouts and healthy eating.
+                        </p>
+
+                        <div
+                            class="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+                            <video
+                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                controls disablepictureinpicture controlslist="nodownload">
+                                <source src="../clients/client video6.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-[450px] p-1 glass-card rounded-[2rem] sm:rounded-[3rem] transition-all"
+                    data-testid="story-card-video">
+                    <div class="bg-card rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 h-full border border-white/5">
+                        <div class="flex justify-between mb-6 sm:mb-8">
+                            <h4 class="text-lg sm:text-xl font-bold italic text-accent uppercase">Member's Review</h4>
+                            <span
+                                class="text-[8px] font-black uppercase bg-accent/10 text-accent px-3 sm:px-4 py-1 rounded-full border border-accent/20">Video
+                                Review</span>
+                        </div>
+
+                        <p class="text-white/60 text-sm leading-relaxed mb-4 italic">
+                            See the real results of our home workouts and healthy eating.
+                        </p>
+
+                        <div
+                            class="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+                            <video
+                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 "
+                                controls disablepictureinpicture controlslist="nodownload">
+                                <source src="../clients/client video7.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="min-w-[280px] sm:min-w-[320px] md:min-w-[450px] p-1 glass-card rounded-[2rem] sm:rounded-[3rem] transition-all"
+                    data-testid="story-card-video">
+                    <div class="bg-card rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 h-full border border-white/5">
+                        <div class="flex justify-between mb-6 sm:mb-8">
+                            <h4 class="text-lg sm:text-xl font-bold italic text-accent uppercase">Member's Review</h4>
+                            <span
+                                class="text-[8px] font-black uppercase bg-accent/10 text-accent px-3 sm:px-4 py-1 rounded-full border border-accent/20">Video
+                                Review</span>
+                        </div>
+
+                        <p class="text-white/60 text-sm leading-relaxed mb-4 italic">
+                            See the real results of our home workouts and healthy eating.
+                        </p>
+
+                        <div
+                            class="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
+                            <video
+                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                controls disablepictureinpicture controlslist="nodownload">
+                                <source src="../clients/client video1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Big Share Button at Bottom -->
+            <div class="mt-12 sm:mt-16 flex justify-center">
+                <a href="/feedback"
+                    class="magnetic-btn border border-accent/30 text-accent hover:bg-accent hover:text-black px-10 sm:px-14 py-5 sm:py-6 rounded-full font-black text-sm sm:text-base uppercase tracking-[0.2em] transition-all shadow-[0_0_20px_rgba(212,255,0,0.1)] hover:shadow-[0_0_40px_rgba(212,255,0,0.4)] hover:scale-105">
+                    Share Your Experience
+                </a>
+            </div>
+        </section>
+
+        <!-- ============= STORY MODAL ============= -->
+        <!-- <div id="storyModal" class="fixed inset-0 z-[400] flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-500" role="dialog" aria-modal="true" aria-labelledby="modalName">
+            <div class="absolute inset-0 bg-black/95 backdrop-blur-xl" onclick="closeStory()"></div>
+            <div id="storyCard" class="bg-card border border-white/10 w-full max-w-2xl rounded-[3rem] p-12 relative z-10 scale-90 transition-all duration-500">
+                <button onclick="closeStory()" class="absolute top-8 right-8 text-white/20 hover:text-accent transition-colors" aria-label="Close modal">
+                    <i class="fas fa-times text-xl" aria-hidden="true"></i>
+                </button>
+                <div class="mb-10">
+                    <span id="modalCategory" class="text-[10px] font-bold text-accent uppercase tracking-[0.3em] mb-4 block italic"></span>
+                    <h3 id="modalName" class="text-5xl font-display font-bold italic uppercase tracking-tighter text-white"></h3>
+                </div>
+                <p id="modalDetail" class="text-white/50 text-xl leading-relaxed italic mb-10 border-l-2 border-accent/20 pl-8"></p>
+                <div class="flex gap-4">
+                    <a href="/appoitment" class="bg-accent text-black font-black py-4 px-8 rounded-full uppercase text-[10px] tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all" data-testid="secure-protocol-btn">
+                        Book Your Session
+                    </a>
+                    <button onclick="closeStory()" class="text-white/40 font-bold py-4 px-8 rounded-full uppercase text-[10px] tracking-widest hover:text-white transition-all" data-testid="close-vault-btn">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- ============= PROGRAMS SECTION ============= -->
+        <section id="how-it-works" class="py-24 sm:py-32 px-4 sm:px-8 max-w-[1400px] mx-auto">
+            <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+                <div
+                    class="col-span-1 lg:col-span-8 p-6 sm:p-12 bg-card border border-border rounded-[2rem] sm:rounded-[3.5rem] flex flex-col justify-between hover:border-accent/30 transition-all group">
+                    <div>
+                        <h2
+                            class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold italic mb-6 sm:mb-8 uppercase text-accent">
+                            How Do We <span class="text-white not-italic">Work Together?</span></h2>
+                        <p class="text-muted text-base sm:text-lg leading-relaxed max-w-xl italic">Getting healthy at
+                            home is easy when we follow these simple steps together.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-12">
+                        <div
+                            class="p-6 sm:p-8 bg-surface/30 rounded-2xl sm:rounded-3xl border border-white/5 hover:border-accent/20 transition-all hover:transform hover:scale-105">
+                            <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                                <div class="text-accent text-2xl sm:text-3xl font-display font-bold"></div>
+                                <i class="fas fa-comments text-accent text-lg sm:text-xl"></i>
+                            </div>
+                            <h4 class="text-accent text-xs font-bold uppercase tracking-widest mb-2 italic">A Friendly
+                                Chat</h4>
+                            <p class="text-xs text-white/50 leading-relaxed italic">We start by talking about your
+                                health goals and how we can fit simple changes into your daily life.</p>
+                        </div>
+
+                        <div
+                            class="p-6 sm:p-8 bg-surface/30 rounded-2xl sm:rounded-3xl border border-white/5 hover:border-accent/20 transition-all hover:transform hover:scale-105">
+                            <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                                <div class="text-accent text-2xl sm:text-3xl font-display font-bold"></div>
+                                <i class="fab fa-whatsapp text-accent text-lg sm:text-xl"></i>
+                            </div>
+                            <h4 class="text-accent text-xs font-bold uppercase tracking-widest mb-2 italic">Daily
+                                Check-ins</h4>
+                            <p class="text-xs text-white/50 leading-relaxed italic">Every morning, you send me a quick
+                                update. I'll guide your food and movement for that specific day.</p>
+                        </div>
+
+                        <div
+                            class="p-6 sm:p-8 bg-surface/30 rounded-2xl sm:rounded-3xl border border-white/5 hover:border-accent/20 transition-all hover:transform hover:scale-105">
+                            <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                                <div class="text-accent text-2xl sm:text-3xl font-display font-bold"></div>
+                                <i class="fas fa-video text-accent text-lg sm:text-xl"></i>
+                            </div>
+                            <h4 class="text-accent text-xs font-bold uppercase tracking-widest mb-2 italic">Exercise
+                                Together</h4>
+                            <p class="text-xs text-white/50 leading-relaxed italic">We meet for live video sessions
+                                where I show you exactly how to move safely in your own living room.</p>
+                        </div>
+
+                        <div
+                            class="p-6 sm:p-8 bg-surface/30 rounded-2xl sm:rounded-3xl border border-white/5 hover:border-accent/20 transition-all hover:transform hover:scale-105">
+                            <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                                <div class="text-accent text-2xl sm:text-3xl font-display font-bold"></div>
+                                <i class="fas fa-star text-accent text-lg sm:text-xl"></i>
+                            </div>
+                            <h4 class="text-accent text-xs font-bold uppercase tracking-widest mb-2 italic">Celebrate
+                                Results</h4>
+                            <p class="text-xs text-white/50 leading-relaxed italic">We track your wins—like feeling
+                                stronger or seeing better sugar levels—to keep you feeling great.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="col-span-1 lg:col-span-4 bg-accent rounded-[2rem] sm:rounded-[3.5rem] p-6 sm:p-12 text-black flex flex-col justify-between group overflow-hidden relative shadow-2xl hover:shadow-[0_20px_60px_rgba(212,255,0,0.3)] transition-all">
+                    <i class="fas fa-thumbs-up text-[10rem] sm:text-[14rem] absolute -bottom-6 sm:-bottom-10 -right-6 sm:-right-10 opacity-10"
+                        aria-hidden="true"></i>
+
+                    <div class="relative z-10">
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tighter leading-none italic mb-2">
+                            Success Rate</h3>
+                        <p
+                            class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest opacity-60 italic mb-4 sm:mb-6">
+                            Proven Results at Home</p>
+
+                        <p class="text-[6rem] sm:text-[8rem] md:text-[10rem] font-display font-bold leading-none -ml-2 tracking-tighter counter"
+                            data-target="94">0<span class="text-2xl sm:text-3xl">%</span></p>
+
+                        <p
+                            class="text-[9px] sm:text-[11px] font-bold leading-tight uppercase opacity-80 mt-2 sm:mt-4 max-w-[200px]">
+                            Of our members reach their health goals within the first 12 weeks.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 sm:space-y-6 relative z-10 pt-6 sm:pt-8 border-t border-black/10">
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-display font-bold italic leading-none">10k+</p>
+                                <p class="text-[7px] sm:text-[8px] font-black uppercase tracking-widest opacity-60">
+                                    Lives Changed</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-display font-bold italic leading-none">20k+</p>
+                                <p class="text-[7px] sm:text-[8px] font-black uppercase tracking-widest opacity-60">
+                                    Personal Wins</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 sm:space-y-3">
+                            <p
+                                class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest mb-2 border-b border-black/5 pb-2">
+                                Why it works:</p>
+                            <ul class="space-y-1 sm:space-y-2">
+                                <li
+                                    class="flex items-center gap-2 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                                    <i class="fab fa-whatsapp text-xs"></i> 24/7 Personal Chat
+                                </li>
+                                <li
+                                    class="flex items-center gap-2 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                                    <i class="fas fa-video text-xs"></i> Live Workout Guidance
+                                </li>
+                                <li
+                                    class="flex items-center gap-2 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                                    <i class="fas fa-utensils text-xs"></i> Simple Food Plans
+                                </li>
+                                <li
+                                    class="flex items-center gap-2 text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
+                                    <i class="fas fa-check-double text-xs"></i> Daily Progress Tracking
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 sm:mt-8 flex justify-between items-end">
+                        <div>
+                            <p class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] opacity-40 italic">
+                                Trusted Since 2019</p>
+                        </div>
+                        <i class="fas fa-shield-alt text-lg sm:text-xl opacity-20"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============= ADVICE/BLOG SECTION ============= -->
+        <section id="advice" class="py-24 sm:py-32 px-4 sm:px-8 max-w-[1400px] mx-auto">
+            <div class="text-center mb-16 sm:mb-20 reveal">
+                <p class="text-accent text-[9px] sm:text-[10px] font-bold tracking-[0.5em] uppercase mb-4 italic">
+                    Helpful Tips</p>
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-display font-bold italic tracking-tighter uppercase">
+                    Fitness <span class="not-italic text-white/30 tracking-widest">TIPS.</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12" id="blog-container"
+                data-testid="blog-container">
+                <!-- Blog posts will be populated via JavaScript -->
+            </div>
+        </section>
+    </main>
+    <!-- ============= ARTICLE VIEW ============= -->
+    <main id="article-view" class="min-h-screen pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-8">
+        <div class="max-w-4xl mx-auto">
+            <button onclick="backToHome()"
+                class="mb-8 sm:mb-12 flex items-center gap-3 text-accent font-bold uppercase text-[9px] sm:text-[10px] tracking-widest group"
+                data-testid="back-to-intelligence-btn">
+                <i class="fas fa-arrow-left group-hover:-translate-x-2 transition-transform" aria-hidden="true"></i>
+                Back to Tips
+            </button>
+            <div id="article-content"></div>
+        </div>
+    </main>
+
+
+    <!-- ============= FAQ ============= -->
+    <section id="faq" class="py-24 sm:py-32 px-4 sm:px-8 max-w-[1000px] mx-auto">
+        <div class="text-center mb-12 sm:mb-16 reveal">
+            <p class="text-accent text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] mb-4 italic">Commonly
+                Asked Questions</p>
+            <h2
+                class="text-4xl sm:text-5xl md:text-7xl font-display font-bold italic tracking-tighter uppercase mb-4 sm:mb-6">
+                Things You <span class="text-white/30 not-italic">Need to Know.</span>
+            </h2>
+        </div>
+
+        <div class="space-y-4 sm:space-y-6">
+            <div
+                class="reveal glass-card rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 transition-all duration-500 hover:border-accent/20 hover:bg-white/[0.02]">
+                <button
+                    class="faq-toggle w-full text-left p-6 sm:p-8 flex items-center justify-between group outline-none focus:outline-none"
+                    aria-expanded="false">
+                    <span
+                        class="font-display font-bold text-lg sm:text-xl uppercase tracking-tight text-white/80 group-hover:text-accent transition-colors">
+                        Do I need fancy gym equipment?
+                    </span>
+                    <div class="relative w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center">
+                        <span
+                            class="absolute w-full h-[2px] bg-accent rounded-full transition-transform duration-500"></span>
+                        <span
+                            class="absolute h-full w-[2px] bg-accent rounded-full transition-transform duration-500 vertical-line"></span>
+                    </div>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <p
+                            class="px-6 sm:px-8 pb-6 sm:pb-8 text-white/50 leading-relaxed italic border-l-2 border-accent/20 ml-6 sm:ml-8 mb-4 opacity-0 transition-opacity duration-700 faq-text">
+                            Not at all! Most of our members start with just their body weight. If needed, we use simple
+                            tools like a water bottle or a small kettlebell that you can easily keep at home.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="reveal delay-100 glass-card rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 transition-all duration-500 hover:border-accent/20 hover:bg-white/[0.02]">
+                <button
+                    class="faq-toggle w-full text-left p-6 sm:p-8 flex items-center justify-between group outline-none focus:outline-none"
+                    aria-expanded="false">
+                    <span
+                        class="font-display font-bold text-lg sm:text-xl uppercase tracking-tight text-white/80 group-hover:text-accent transition-colors">
+                        How do the daily check-ins work?
+                    </span>
+                    <div class="relative w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center">
+                        <span
+                            class="absolute w-full h-[2px] bg-accent rounded-full transition-transform duration-500"></span>
+                        <span
+                            class="absolute h-full w-[2px] bg-accent rounded-full transition-transform duration-500 vertical-line"></span>
+                    </div>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <p
+                            class="px-6 sm:px-8 pb-6 sm:pb-8 text-white/50 leading-relaxed italic border-l-2 border-accent/20 ml-6 sm:ml-8 mb-4 opacity-0 transition-opacity duration-700 faq-text">
+                            It's super easy. Every morning, you send me a quick message on WhatsApp about how you're
+                            feeling. I then give you simple advice on what to eat and how to move for that day.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="reveal glass-card rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 transition-all duration-500 hover:border-accent/20 hover:bg-white/[0.02]">
+                <button
+                    class="faq-toggle w-full text-left p-6 sm:p-8 flex items-center justify-between group outline-none focus:outline-none"
+                    aria-expanded="false">
+                    <span
+                        class="font-display font-bold text-lg sm:text-xl uppercase tracking-tight text-white/80 group-hover:text-accent transition-colors">I
+                        haven't exercised in years. Can I still join?</span>
+                    <div class="relative w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center">
+                        <span
+                            class="absolute w-full h-[2px] bg-accent rounded-full transition-transform duration-500"></span>
+                        <span
+                            class="absolute h-full w-[2px] bg-accent rounded-full transition-transform duration-500 vertical-line"></span>
+                    </div>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <p
+                            class="px-6 sm:px-8 pb-6 sm:pb-8 text-white/50 leading-relaxed italic border-l-2 border-accent/20 ml-6 sm:ml-8 mb-4 opacity-0 transition-opacity duration-700 faq-text">
+                            Absolutely! We start exactly where you are today. I design every session to be safe and
+                            achievable, focusing on gentle movements that help you build strength without feeling
+                            overwhelmed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="reveal delay-100 glass-card rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 transition-all duration-500 hover:border-accent/20 hover:bg-white/[0.02]">
+                <button
+                    class="faq-toggle w-full text-left p-6 sm:p-8 flex items-center justify-between group outline-none focus:outline-none"
+                    aria-expanded="false">
+                    <span
+                        class="font-display font-bold text-lg sm:text-xl uppercase tracking-tight text-white/80 group-hover:text-accent transition-colors">Do
+                        I have to follow a very strict diet?</span>
+                    <div class="relative w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center">
+                        <span
+                            class="absolute w-full h-[2px] bg-accent rounded-full transition-transform duration-500"></span>
+                        <span
+                            class="absolute h-full w-[2px] bg-accent rounded-full transition-transform duration-500 vertical-line"></span>
+                    </div>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <p
+                            class="px-6 sm:px-8 pb-6 sm:pb-8 text-white/50 leading-relaxed italic border-l-2 border-accent/20 ml-6 sm:ml-8 mb-4 opacity-0 transition-opacity duration-700 faq-text">
+                            Not at all. We focus on "Smart Eating" rather than "Strict Eating." I'll show you how to
+                            enjoy your favorite home-cooked meals while making small, healthy changes that keep your
+                            energy levels high.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="reveal delay-200 glass-card rounded-[2rem] sm:rounded-[2.5rem] border border-white/5 transition-all duration-500 hover:border-accent/20 hover:bg-white/[0.02]">
+                <button
+                    class="faq-toggle w-full text-left p-6 sm:p-8 flex items-center justify-between group outline-none focus:outline-none"
+                    aria-expanded="false">
+                    <span
+                        class="font-display font-bold text-lg sm:text-xl uppercase tracking-tight text-white/80 group-hover:text-accent transition-colors">What
+                        if I miss a live session?</span>
+                    <div class="relative w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center">
+                        <span
+                            class="absolute w-full h-[2px] bg-accent rounded-full transition-transform duration-500"></span>
+                        <span
+                            class="absolute h-full w-[2px] bg-accent rounded-full transition-transform duration-500 vertical-line"></span>
+                    </div>
+                </button>
+                <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <p
+                            class="px-6 sm:px-8 pb-6 sm:pb-8 text-white/50 leading-relaxed italic border-l-2 border-accent/20 ml-6 sm:ml-8 mb-4 opacity-0 transition-opacity duration-700 faq-text">
+                            Don't worry! Life happens. While live sessions are great for real-time guidance, I also
+                            provide simple home workout plans you can do on your own time so you never lose your
+                            progress.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========= Whatsapp Floating Icon========= -->
+    <a href="https://wa.me/7575918463" target="_blank" class="whatsapp-float group"
+        aria-label="Chat with us on WhatsApp">
+        <div
+            class="whatsapp-content flex items-center gap-3 bg-accent p-3 sm:p-4 rounded-full shadow-[0_10px_30px_rgba(212,255,0,0.3)] transition-all duration-500">
+            <span
+                class="max-w-0 overflow-hidden whitespace-nowrap text-black font-black text-[10px] uppercase tracking-widest max-w-[150px] transition-all duration-500 ease-in-out">
+                Chat with Coach
+            </span>
+            <div class="w-6 h-6 flex items-center justify-center">
+                <i class="fab fa-whatsapp text-2xl text-black"></i>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-accent rounded-full -z-10 animate-ping opacity-20 group-hover:opacity-40"></div>
+    </a>
+
+
+    <!-- ============= FOOTER ============= -->
+    <footer
+        class="bg-[#020202] pt-24 sm:pt-32 pb-8 sm:pb-12 px-4 sm:px-8 border-t border-white/5 relative overflow-hidden"
+        role="contentinfo">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent">
+        </div>
+
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-12 gap-6 sm:gap-12 mb-16 sm:mb-20">
+
+                <div class="col-span-12 lg:col-span-4 space-y-6 sm:space-y-8">
+                    <div class="flex items-center gap-3 group cursor-pointer" onclick="backToHome()">
+                        <div class="w-10 sm:w-12 h-[2px] bg-accent transition-all group-hover:w-14 sm:group-hover:w-16">
+                        </div>
+                        <span
+                            class="font-display font-bold text-2xl sm:text-3xl tracking-tighter italic text-accent uppercase">Archana<span
+                                class="text-white">Sah</span></span>
+                    </div>
+                    <p class="text-white/40 text-sm leading-relaxed italic max-w-sm">
+                        Your online fitness platform helping people control diabetes, lose weight, and live healthier
+                        through home-based workouts and expert coaching.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                        </span>
+                        <span
+                            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-accent/60 italic">We're
+                            Open: Accepting New Clients</span>
+                    </div>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Quick Links</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/about-coach"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Coach
+                                Profile</a></li>
+                        <li><a href="/programs/"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Our Programs</a>
+                        </li>
+                        <li><a href="#stories"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Members
+                                Stories</a></li>
+                        <li><a href="#advice"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Tips &
+                                Advice</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Legal</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/privacy-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Privacy
+                                Policy</a></li>
+                        <li><a href="/terms-and-conditions"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Terms of
+                                Service</a></li>
+                        <li><a href="/refund-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Refund
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div
+                    class="col-span-12 lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Connect With Us</h4>
+
+                    <div class="flex justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <a href="https://www.facebook.com/archana.sah.524"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.instagram.com/archusah9"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@fitwitharchu"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="YouTube">
+                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://in.linkedin.com/in/archana-kumari-sah-b6b8a3165"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">
+                        Contact: info@archonglyca.com</p>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-white/5 pt-8 sm:pt-12 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
+                <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">© 2025
+                    ARCHON GLYCA. All Rights Reserved.</p>
+                <p class="text-[9px] sm:text-[10px] text-white/10 italic">Helping you get fit and healthy from home</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============= BACK TO TOP BUTTON ============= -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()" role="button" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </div>
+
+    <!-- ============= JAVASCRIPT ============= -->
+    <script>
+        // ============= PAGE LOADER =============
+        window.addEventListener('load', () => {
+            updateNavbarAuth();
+
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 700);
+                document.body.classList.remove('preload');
+            }, 1500);
+        });
+
+        // ============= NAVBAR SCROLL BEHAVIOR =============
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+
+            lastScroll = currentScroll;
+
+            // Update scroll progress bar
+            updateScrollProgress();
+
+            // Show/hide back to top button
+            updateBackToTop();
+        });
+
+        // window.addEventListener('scroll', () => {
+        //     const waBtn = document.querySelector('.whatsapp-float');
+        //     if (waBtn) {
+        //         if (window.scrollY > 300) {
+        //             waBtn.style.opacity = '1';
+        //             waBtn.style.pointerEvents = 'all';
+        //         } else {
+        //             waBtn.style.opacity = '0';
+        //             waBtn.style.pointerEvents = 'none';
+        //         }
+        //     }
+        // });
+
+        // ============= SCROLL PROGRESS BAR =============
+        function updateScrollProgress() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.pageYOffset / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        }
+
+        // ============= BACK TO TOP BUTTON =============
+        function updateBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============= MOBILE MENU TOGGLE =============
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.getElementById('hamburger');
+
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+
+            // Update aria-expanded
+            const isExpanded = hamburger.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isExpanded);
+
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isExpanded ? 'hidden' : '';
+        }
+
+        // ============= INTERSECTION OBSERVER FOR REVEALS =============
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ============= COUNTER ANIMATION =============
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + (target === 100 ? '%' : '+');
+                        }
+                    };
+
+                    updateCounter();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // ============= PARALLAX EFFECT =============
+        const heroImage = document.getElementById('heroImage');
+        window.addEventListener('scroll', () => {
+            if (heroImage) {
+                const scrolled = window.pageYOffset;
+                heroImage.style.transform = `translateY(${scrolled * 0.5}px) scale(1.1)`;
+            }
+        });
+
+        // ============= STORY MODAL =============
+        // function openStory(name, detail, category) {
+        //     const modal = document.getElementById('storyModal');
+        //     const storyCard = document.getElementById('storyCard');
+
+        //     document.getElementById('modalName').textContent = name;
+        //     document.getElementById('modalDetail').textContent = detail;
+        //     document.getElementById('modalCategory').textContent = category;
+
+        //     modal.classList.remove('pointer-events-none');
+        //     setTimeout(() => {
+        //         modal.style.opacity = '1';
+        //         storyCard.style.transform = 'scale(1)';
+        //     }, 10);
+
+        //     document.body.style.overflow = 'hidden';
+        // }
+
+        // function closeStory() {
+        //     const modal = document.getElementById('storyModal');
+        //     const storyCard = document.getElementById('storyCard');
+
+        //     modal.style.opacity = '0';
+        //     storyCard.style.transform = 'scale(0.9)';
+
+        //     setTimeout(() => {
+        //         modal.classList.add('pointer-events-none');
+        //         document.body.style.overflow = '';
+        //     }, 500);
+        // }
+
+        // ============= BLOG/ARTICLES DATA =============
+        const articles = [
+            {
+                id: 1,
+                title: "5 Simple Home Exercises to Control Diabetes",
+                excerpt: "Learn easy exercises you can do at home to help manage blood sugar levels...",
+                category: "Diabetes Care",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800",
+                content: `
+                    <h3>Why Exercise Helps with Diabetes</h3>
+                    <p>Regular exercise helps your body use insulin better and lowers blood sugar naturally. You don't need a gym - these simple movements work great at home!</p>
+                    
+                    <h3>5 Easy Exercises:</h3>
+                    <ul>
+                        <li>Walking after meals (10-15 minutes)</li>
+                        <li>Bodyweight squats (10-15 reps)</li>
+                        <li>Wall push-ups (8-12 reps)</li>
+                        <li>Marching in place (5 minutes)</li>
+                        <li>Simple stretches (5-10 minutes)</li>
+                    </ul>
+                    
+                    <h3>Tips for Success:</h3>
+                    <ul>
+                        <li>Start slow and build up gradually</li>
+                        <li>Exercise after meals for best results</li>
+                        <li>Stay consistent - even 10 minutes helps</li>
+                        <li>Check your blood sugar before and after</li>
+                        <li>Stay hydrated throughout the day</li>
+                    </ul>
+                `
+            },
+
+            {
+                id: 2,
+                title: "Morning Yoga for Energy and Flexibility",
+                excerpt: "Start your day with these gentle yoga poses to wake up your muscles and calm your mind...",
+                category: "Yoga",
+                image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800",
+                content: `
+                    <h3>Yoga for Daily Life</h3>
+                    <p>Yoga is a perfect way to improve your flexibility and reduce stress. Just 10 minutes every morning can change how you feel all day.</p>
+                    
+                    <h3>5 Gentle Poses:</h3>
+                    <ul>
+                        <li><strong>Child's Pose:</strong> Relaxes the back and mind (hold for 1 minute)</li>
+                        <li><strong>Cat-Cow:</strong> Improves spine flexibility (10 rounds)</li>
+                        <li><strong>Downward Dog:</strong> Stretches the whole body (hold for 30 seconds)</li>
+                        <li><strong>Warrior I:</strong> Builds leg strength and focus (5 breaths per side)</li>
+                        <li><strong>Cobra Pose:</strong> Opens the chest and shoulders (hold for 30 seconds)</li>
+                    </ul>
+                    
+                    <h3>Benefits:</h3>
+                    <ul>
+                        <li>Reduces daily stress and anxiety</li>
+                        <li>Helps with better posture and balance</li>
+                        <li>Improves blood flow and heart health</li>
+                        <li>Can be done easily on a simple mat or carpet</li>
+                    </ul>
+                `
+            },
+            {
+                id: 3,
+                title: "Easy Meal Planning for Weight Loss at Home",
+                excerpt: "Simple tips to plan healthy meals that help you lose weight...",
+                category: "Healthy Eating",
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800",
+                content: `
+                    <h3>Why Meal Planning Works</h3>
+                    <p>Planning your meals ahead helps you make healthier choices and avoid unhealthy snacks. It's easier than you think!</p>
+                    
+                    <h3>Simple Planning Steps:</h3>
+                    <ul>
+                        <li>Choose 3-4 simple recipes for the week</li>
+                        <li>Make a shopping list with whole foods</li>
+                        <li>Prep vegetables on Sunday</li>
+                        <li>Cook larger portions to have leftovers</li>
+                        <li>Keep healthy snacks ready</li>
+                    </ul>
+                    
+                    <h3>What to Eat:</h3>
+                    <ul>
+                        <li>Lots of vegetables (half your plate)</li>
+                        <li>Lean proteins (chicken, fish, lentils)</li>
+                        <li>Whole grains (brown rice, quinoa, oats)</li>
+                        <li>Healthy fats (nuts, seeds, olive oil)</li>
+                        <li>Fresh fruits (in moderation)</li>
+                    </ul>
+                `
+            },
+
+            {
+                id: 4,
+                title: "How to Lose Weight at Home Without a Gym",
+                excerpt: "Discover how simple changes in your daily movement can lead to lasting weight loss results...",
+                category: "Weight Loss",
+                image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800",
+                content: `
+                    <h3>Weight Loss Made Simple</h3>
+                    <p>Losing weight isn't about running for hours. It's about being consistent with small, healthy choices every day. You can reach your goals right from your living room!</p>
+                    
+                    <h3>4 Steps to Start:</h3>
+                    <ul>
+                        <li>Drink a glass of water before every meal (helps you feel full)</li>
+                        <li>Focus on protein and fiber to stay energized</li>
+                        <li>Get 7-8 hours of sleep to help your body recover</li>
+                        <li>Add simple resistance training to build calorie-burning muscle</li>
+                    </ul>
+                    
+                    <h3>Daily Habits for Success:</h3>
+                    <ul>
+                        <li>Avoid sugary drinks and processed snacks</li>
+                        <li>Take the stairs instead of the elevator</li>
+                        <li>Keep a simple food diary to track what you eat</li>
+                        <li>Don't skip meals - focus on eating at the same time every day</li>
+                    </ul>
+                `
+            },
+            {
+                id: 5,
+                title: "Targeting Belly Fat with HIIT",
+                excerpt: "Learn how High-Intensity Interval Training (HIIT) can help you burn fat faster in less time...",
+                category: "Fat Loss",
+                image: "https://images.unsplash.com/photo-1517438984742-1262db08379e?q=80&w=800",
+                content: `
+                    <h3>The Power of HIIT</h3>
+                    <p>HIIT involves short bursts of hard work followed by quick rests. This method is famous for burning fat even after you finish your workout!</p>
+                    
+                    <h3>Simple HIIT Routine (20 Mins):</h3>
+                    <ul>
+                        <li>High Knees (30 seconds work / 30 seconds rest)</li>
+                        <li>Mountain Climbers (30 seconds work / 30 seconds rest)</li>
+                        <li>Jumping Jacks (30 seconds work / 30 seconds rest)</li>
+                        <li>Plank Holds (30 seconds work / 30 seconds rest)</li>
+                        <li>Repeat the circuit 4 times</li>
+                    </ul>
+                    
+                    <h3>Why it Works:</h3>
+                    <ul>
+                        <li>Boosts your metabolism for hours after exercise</li>
+                        <li>Requires no equipment, just a little space</li>
+                        <li>Helps preserve muscle while losing fat</li>
+                        <li>Can be done in a short amount of time</li>
+                    </ul>
+                `
+            },
+
+            {
+                id: 6,
+                title: "Full Body Strength Training at Home",
+                excerpt: "Build a stronger, more toned body using nothing but your own body weight...",
+                category: "Home Workouts",
+                image: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=800",
+                content: `
+                    <h3>Building Strength at Home</h3>
+                    <p>You don't need heavy weights to get strong. Using your own body weight is an effective way to tone your muscles and feel more active.</p>
+                    
+                    <h3>The "Big 4" Movements:</h3>
+                    <ul>
+                        <li><strong>Lunges:</strong> Great for legs and balance (12 reps per leg)</li>
+                        <li><strong>Push-Ups:</strong> Strengthens chest, shoulders, and arms (8-10 reps)</li>
+                        <li><strong>Glute Bridges:</strong> Excellent for lower back and glutes (15 reps)</li>
+                        <li><strong>Plank:</strong> Builds a strong core (hold for 30-60 seconds)</li>
+                    </ul>
+                    
+                                        <h3>Coaching Tips:</h3>
+                    <ul>
+                        <li>Focus on slow, controlled movements</li>
+                        <li>Breathe out during the hard part of the exercise</li>
+                        <li>Rest for 60 seconds between different exercises</li>
+                        <li>Listen to your body - if it hurts, stop and adjust</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // ============= RENDER BLOG POSTS =============
+        function renderBlogPosts() {
+            const container = document.getElementById('blog-container');
+            container.innerHTML = '';
+
+            articles.forEach((article, index) => {
+                const isHidden = index >= 3 ? 'hidden article-extra' : '';
+
+                const articleCard = `
+                    <div onclick="openArticle(${article.id})" 
+                        class="group cursor-pointer glass-card rounded-[2.5rem] p-8 transition-all hover:transform hover:scale-[1.02] ${isHidden}" 
+                        data-testid="blog-card-${article.id}">
+                        <div class="h-56 rounded-2xl overflow-hidden mb-8 border border-white/5">
+                            <img src="${article.image}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="${article.title}">
+                        </div>
+                        <span class="text-[8px] font-bold uppercase tracking-[0.3em] text-accent/60 mb-4 block italic">${article.category}</span>
+                        <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-accent transition-colors uppercase tracking-tight leading-tight">${article.title}</h3>
+                        <p class="text-white/40 text-sm leading-relaxed mb-6 italic">${article.excerpt}</p>
+                        <div class="flex items-center gap-3 text-accent font-bold uppercase text-[10px] tracking-widest">
+                            Read More 
+                            <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += articleCard;
+            });
+
+            if (articles.length > 3) {
+                const btnContainer = document.createElement('div');
+                btnContainer.className = 'col-span-12 text-center mt-12';
+                btnContainer.innerHTML = `
+                    <button id="toggleArticlesBtn" onclick="handleArticleToggle()" 
+                        class="inline-flex items-center justify-center min-w-[200px] bg-accent text-black font-black py-4 px-10 rounded-full uppercase text-[10px] tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all outline-none focus:outline-none">
+                        <span id="btnText">View All Tips</span>
+                        <i id="btnSpinner" class="fas fa-circle-notch fa-spin ml-3 hidden"></i>
+                    </button>
+                `;
+                container.after(btnContainer);
+            }
+        }
+
+        // ============= TOGGLE LOGIC (Loading + View Less) =============
+        async function handleArticleToggle() {
+            const btn = document.getElementById('toggleArticlesBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+            const extraCards = document.querySelectorAll('.article-extra');
+            const isShowingMore = btnText.innerText === "SHOW LESS";
+
+            if (isShowingMore) {
+                // Simple "Show Less" logic
+                extraCards.forEach(card => card.classList.add('hidden'));
+                btnText.innerText = "VIEW ALL TIPS";
+                window.location.hash = "advice"; // Scroll back to top of section
+            } else {
+                // Advanced "Loading" effect
+                btn.disabled = true;
+                spinner.classList.remove('hidden');
+                btnText.innerText = "FETCHING...";
+
+                // Wait for 1 second to simulate a real server fetch
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                extraCards.forEach(card => {
+                    card.classList.remove('hidden');
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transition = 'opacity 0.5s ease-in';
+                    }, 10);
+                });
+
+                spinner.classList.add('hidden');
+                btnText.innerText = "SHOW LESS";
+                btn.disabled = false;
+            }
+        }
+
+        // ============= VIEW ALL ARTICLES LOGIC =============
+        function viewAllArticles() {
+            // Show hidden cards
+            const extraCards = document.querySelectorAll('.article-extra');
+            extraCards.forEach(card => {
+                card.classList.remove('hidden');
+                // Optional: Trigger a small animation
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transition = 'opacity 0.5s ease-in';
+                }, 10);
+            });
+
+            // Remove the button
+            document.getElementById('view-all-container').remove();
+        }
+
+        // ============= OPEN ARTICLE =============
+        function openArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+
+            const articleContent = document.getElementById('article-content');
+            articleContent.innerHTML = `
+                <div class="reveal active">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-accent/60 mb-4 block italic">${article.category}</span>
+                    <h1 class="text-4xl md:text-6xl font-display font-bold italic tracking-tighter uppercase mb-12 text-white leading-tight">${article.title}</h1>
+                    <div class="h-96 rounded-3xl overflow-hidden mb-12 border border-white/10">
+                        <img src="${article.image}" class="w-full h-full object-cover" alt="${article.title}">
+                    </div>
+                    <div class="prose-custom">
+                        ${article.content}
+                    </div>
+                    <div class="mt-16 p-12 bg-accent/5 border border-accent/20 rounded-3xl">
+                        <h3 class="text-accent text-2xl font-bold mb-4 uppercase tracking-tight">Ready to Start Your Fitness Journey?</h3>
+                        <p class="text-white/60 mb-8 italic leading-relaxed">Join thousands who have transformed their health with our expert online coaching. Book your free session today!</p>
+                        <a href="/appoitment" class="inline-block bg-accent text-black font-black py-4 px-8 rounded-full uppercase text-[10px] tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all" data-testid="article-cta-btn">
+                            Book Free Session Now
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('home-view').style.display = 'none';
+            const articleView = document.getElementById('article-view');
+            articleView.style.display = 'block';
+            setTimeout(() => articleView.classList.add('active'), 10);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============= BACK TO HOME =============
+        function backToHome() {
+            const articleView = document.getElementById('article-view');
+            articleView.classList.remove('active');
+
+            setTimeout(() => {
+                articleView.style.display = 'none';
+                document.getElementById('home-view').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+
+        // ============= INITIALIZE =============
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBlogPosts();
+        });
+
+        // ============= RIPPLE EFFECT ON BUTTONS =============
+        document.querySelectorAll('.magnetic-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // ============= HORIZONTAL SCROLL FOR STORIES =============
+        const storiesContainer = document.getElementById('storiesContainer');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        storiesContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - storiesContainer.offsetLeft;
+            scrollLeft = storiesContainer.scrollLeft;
+        });
+
+        storiesContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        storiesContainer.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        storiesContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - storiesContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            storiesContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // ============= NAVIGATION & AUTHENTICATION LOGIC =============
+        // Toggle Profile Dropdown
+        const profileBtn = document.getElementById('profile-icon-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
+        if (profileBtn) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+        }
+
+        window.addEventListener('click', () => {
+            if (profileDropdown) profileDropdown.classList.add('hidden');
+        });
+
+        // ============= UNIFIED AUTHENTICATION LOGIC =============
+        function updateNavbarAuth() {
+            const desktopAuth = document.getElementById('nav-auth-section'); // PC Container
+            const mobileDropdownAuth = document.getElementById('mobile-profile-options'); // Phone Dropdown Container
+            const sidebarAuth = document.getElementById('sidebar-auth-section'); // Sidebar Login Position
+            const userId = localStorage.getItem('userId');
+
+            // 1. Unified HTML for the Dropdown Content (Same for PC & Phone)
+            const dropdownMenuHTML = `
+                <a href="/profile" class="flex items-center gap-3 px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-accent hover:text-black transition-all">
+                    <i class="fas fa-user text-[8px]"></i> My Profile
+                </a>
+                <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-red-500 hover:bg-white/5 transition-all border-t border-white/5">
+                    <i class="fas fa-sign-out-alt text-[8px]"></i> Logout
+                </button>
+            `;
+
+            // 2. Unified HTML for the Profile Icon Trigger
+            const profileIconTriggerHTML = `
+                <div class="relative group cursor-pointer py-2">
+                    <div class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center bg-accent/5 text-accent hover:border-accent hover:shadow-[0_0_15px_rgba(212,255,0,0.2)] transition-all">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </div>
+                    <div class="hidden lg:block absolute top-full right-0 mt-2 w-48 bg-card border border-white/10 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right z-[150]">
+                        ${dropdownMenuHTML}
+                    </div>
+                </div>
+            `;
+
+            if (userId) {
+                // Apply Icon Trigger to PC Section
+                if (desktopAuth) {
+                    desktopAuth.innerHTML = profileIconTriggerHTML;
+                }
+
+                // Apply shared Menu items to Mobile Dropdown
+                if (mobileDropdownAuth) {
+                    mobileDropdownAuth.innerHTML = dropdownMenuHTML;
+                }
+
+                // Hide Sign-In from sidebar since user is logged in
+                if (sidebarAuth) {
+                    sidebarAuth.innerHTML = '';
+                }
+            } else {
+                // Guest State: Standard Login Button for Desktop
+                const loginBtnHTML = `
+                    <a href="/login" class="px-8 py-3 border border-accent/30 rounded-full hover:bg-accent hover:text-black text-[10px] font-bold uppercase tracking-widest transition-all">
+                        Login
+                    </a>
+                `;
+
+                // Guest State: Sidebar Login for Mobile
+                const sidebarLoginHTML = `
+                    <a href="/login" class="block w-full py-4 text-center border border-accent/20 rounded-full text-accent font-black uppercase text-xs tracking-widest">
+                        Sign In
+                    </a>
+                `;
+
+                if (desktopAuth) desktopAuth.innerHTML = loginBtnHTML;
+                if (mobileDropdownAuth) mobileDropdownAuth.innerHTML = `<a href="/login" class="flex items-center gap-3 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-accent hover:text-black transition-all">Login</a>`;
+                if (sidebarAuth) sidebarAuth.innerHTML = sidebarLoginHTML;
+            }
+        }
+
+        // Left Sidebar Toggle Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const backdrop = document.getElementById('menuBackdrop');
+            const hamburger = document.getElementById('hamburger');
+
+            // Check current state using computed styles or state
+            const isOpen = menu.classList.contains('translate-x-0');
+
+            if (isOpen) {
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                menu.classList.remove('-translate-x-full');
+                menu.classList.add('translate-x-0');
+                backdrop.classList.remove('hidden');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isActive = item.classList.contains('faq-item-active');
+
+                // Close other open items (Optional, for a professional accordion feel)
+                document.querySelectorAll('.glass-card').forEach(el => el.classList.remove('faq-item-active'));
+
+                if (!isActive) {
+                    item.classList.add('faq-item-active');
+                }
+            });
+        });
+
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+
+            // Toggle the answer visibility
+            answer.classList.toggle('hidden');
+
+            // Rotate the icon
+            if (answer.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+                icon.className = 'fas fa-plus text-accent';
+            } else {
+                icon.style.transform = 'rotate(45deg)';
+                icon.className = 'fas fa-plus text-white';
+            }
+        }
+
+        /**
+         * Clears local storage and reloads the page to reset the UI state.
+         */
+        function handleLogout() {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            window.location.reload();
+        }
+
+        // ============= INITIALIZATION =============
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check auth state on every page load
+            updateNavbarAuth();
+        });
+
+        // Make functions available to the global window object for HTML onclick attributes
+        window.updateNavbarAuth = updateNavbarAuth;
+        window.handleLogout = handleLogout;
+    </script>
+</body>
+
+</html>

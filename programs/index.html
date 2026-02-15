@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs | ARCHON GLYCA Clinical Metabolic Health</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../whatsapp.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { accent: '#D4FF00', surface: '#050505', card: '#0F0F0F', border: '#1F1F1F' },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ============= CORE LAYOUT & ACCESSIBILITY ============= */
+        body {
+            background-color: #050505;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .preload * {
+            transition: none !important;
+        }
+
+        /* Selection */
+        ::selection {
+            background: #D4FF00;
+            color: black;
+        }
+
+        /* ============= ENHANCED PRO REVEAL SYSTEM ============= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Delay Logic */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+
+        /* ============= DYNAMIC NAV & SCROLL PROGRESS ============= */
+        .nav-scrolled {
+            background: rgba(5, 5, 5, 0.95) !important;
+            backdrop-filter: blur(50px);
+            border-bottom: 1px solid rgba(212, 255, 0, 0.1);
+            padding: 1rem 2rem !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4FF00, #88ff00);
+            z-index: 9999;
+            transform-origin: left;
+            transition: width 0.1s ease-out;
+        }
+
+        /* ============= MODERN HAMBURGER & SIDEBAR ============= */
+        .hamburger {
+            width: 28px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            z-index: 120;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #D4FF00;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            top: 9px;
+            transform: rotate(135deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            left: -60px;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 9px;
+            transform: rotate(-135deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%;
+            height: 100vh;
+            background: #050505;
+            z-index: 110;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* ============= INTERACTIVE PROGRAM COMPONENTS ============= */
+        .glass-card {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card {
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(212, 255, 0, 0.2);
+            box-shadow: 0 30px 60px rgba(212, 255, 0, 0.15);
+        }
+
+        .img-hover {
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+
+        .img-hover img {
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .img-hover:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Animations for Filters and Modals */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-dropdown {
+            animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-enter {
+            animation: modalEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ============= SPECIAL EFFECTS ============= */
+        .glow-accent {
+            box-shadow: 0 0 30px rgba(212, 255, 0, 0.3);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .badge-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple-effect 0.6s ease-out;
+        }
+
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ============= CUSTOM SCROLLBAR ============= */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4FF00;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8d600;
+        }
+
+        @media (max-width: 768px) {
+            .nav-scrolled {
+                padding: 0.5rem 1rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-white selection:bg-accent selection:text-black">
+
+    <!-- Loader -->
+    <div id="loader"
+        class="fixed inset-0 z-[200] bg-surface flex items-center justify-center transition-opacity duration-700">
+        <div class="flex flex-col items-center">
+            <div class="w-16 h-16 border-2 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <p class="mt-6 font-display tracking-[0.8em] text-[10px] font-bold text-accent animate-pulse uppercase">
+                LOADING PROGRAMS</p>
+        </div>
+    </div>
+
+    <!-- ============= NAVBAR ============= -->
+    <nav id="navbar"
+        class="fixed top-0 w-full z-[100] transition-all duration-700 px-4 sm:px-8 py-4 sm:py-8 flex justify-between items-center bg-surface/80 backdrop-blur-xl border-b border-white/5">
+
+        <div class="lg:hidden hamburger" id="hamburger" onclick="toggleMobileMenu()" role="button"
+            aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-3 group cursor-pointer" onclick="window.location.href='/home'">
+            <div class="w-8 sm:w-10 h-[2px] bg-accent transition-all group-hover:w-12 sm:group-hover:w-16"></div>
+            <a href="/home"
+                class="font-display font-bold text-xl sm:text-2xl tracking-tighter italic text-accent uppercase">
+                ARCHON <span class="text-white">GLYCA</span>
+            </a>
+        </div>
+
+        <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
+            <a href="/home"
+                class="font-display font-bold text-lg sm:text-xl tracking-tighter italic text-accent uppercase">
+                ARCHON <span class="text-white">GLYCA</span>
+            </a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-6 xl:gap-10">
+            <div
+                class="flex gap-6 xl:gap-8 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] text-white/50">
+                <a href="/home" class="hover:text-accent transition-all relative group">Home</a>
+                <a href="/about-coach" class="hover:text-accent transition-all relative group">About Coach</a>
+                <a href="/programs/" class="text-accent transition-all relative group">Programs</a>
+                <a href="/home/#advice" class="hover:text-accent transition-all relative group">Tips & Advice</a>
+                <a href="/contact-us" class="hover:text-accent transition-all relative group">Contact</a>
+                <a href="/about-us" class="hover:text-accent transition-all relative group">About Us</a>
+            </div>
+            <div id="nav-auth-section"
+                class="flex items-center gap-4 border-l border-white/10 pl-6 xl:pl-10 relative group">
+            </div>
+        </div>
+
+        <div class="lg:hidden relative" id="mobile-profile-container">
+            <button id="profile-icon-btn"
+                class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center bg-accent/5 text-accent outline-none">
+                <i class="fas fa-user-circle text-xl"></i>
+            </button>
+            <div id="profile-dropdown"
+                class="hidden absolute top-full right-0 mt-3 w-48 bg-card border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-slideDown z-[120]">
+                <div id="mobile-profile-options"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileMenu"
+        class="fixed top-0 left-0 w-[80%] h-screen bg-surface border-r border-white/5 z-[110] transition-transform duration-500 -translate-x-full lg:hidden">
+        <div class="p-8 space-y-8 h-full flex flex-col overflow-y-auto">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center"><i
+                        class="fas fa-bolt text-black text-sm"></i></div>
+                <a class="font-display font-bold text-xl tracking-tighter italic text-accent uppercase">
+                    ARCHON <span class="text-white">GLYCA</span>
+                </a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="/home"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent">Home</a>
+                <a href="/about-coach"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent">About
+                    Coach</a>
+                <a href="/programs/" class="p-4 text-lg font-bold uppercase tracking-widest text-accent">Programs</a>
+                <a href="/home/#stories"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent">Tips &
+                    Advices</a>
+                <a href="/contact-us"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent">Contact
+                    Us</a>
+                <a href="/about-us"
+                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent">About Us</a>
+            </div>
+            <div id="sidebar-auth-section" class="mt-auto pb-10"></div>
+        </div>
+    </div>
+    <div id="menuBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[105] hidden lg:hidden"
+        onclick="toggleMobileMenu()">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-32 pb-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/40 to-surface z-10"></div>
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop"
+            class="absolute inset-0 w-full h-full object-cover opacity-40 scale-110" alt="Programs Hero">
+
+        <div class="container mx-auto px-8 z-20 text-center">
+            <div
+                class="reveal inline-block px-4 py-1 border border-accent/20 rounded-full mb-8 bg-black/40 badge-float">
+                <p class="font-display text-accent tracking-[0.5em] text-[10px] uppercase">Clinical Programs & Protocols
+                </p>
+            </div>
+            <h1
+                class="reveal delay-100 text-6xl md:text-[8vw] font-display font-bold tracking-tighter leading-[0.9] mb-8">
+                TRANSFORMATION <br> <span class="text-accent italic">PROGRAMS.</span>
+            </h1>
+            <p class="reveal delay-200 text-white/60 max-w-2xl mx-auto text-xl leading-relaxed italic mb-12">
+                Evidence-based protocols designed for metabolic optimization, diabetic management, and sustainable
+                fitness transformation.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="reveal delay-300 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+                <div class="glass-card p-6 rounded-3xl">
+                    <p class="text-accent text-4xl font-display font-bold italic mb-2">12+</p>
+                    <p class="text-[9px] text-white/40 uppercase tracking-widest font-bold">Specialized Programs</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl">
+                    <p class="text-accent text-4xl font-display font-bold italic mb-2">10k+</p>
+                    <p class="text-[9px] text-white/40 uppercase tracking-widest font-bold">Transformations</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl">
+                    <p class="text-accent text-4xl font-display font-bold italic mb-2">94%</p>
+                    <p class="text-[9px] text-white/40 uppercase tracking-widest font-bold">Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="sticky top-20 z-40 bg-surface/95 backdrop-blur-xl border-b border-white/5 py-6">
+        <div class="container mx-auto px-8">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <!-- Search -->
+                <div class="w-full lg:w-96 relative">
+                    <input type="text" id="search-programs" placeholder="Search programs..."
+                        class="w-full bg-card border border-white/10 rounded-2xl px-6 py-4 pl-14 text-white focus:border-accent transition-all outline-none" />
+                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-white/40"></i>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-3">
+                    <!-- Level Filter -->
+                    <div class="relative">
+                        <button id="level-filter-btn"
+                            class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 hover:border-accent/30 transition-all">
+                            <i class="fas fa-layer-group text-accent"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Level</span>
+                            <i class="fas fa-chevron-down text-[8px]"></i>
+                        </button>
+                        <div id="level-filter-menu"
+                            class="hidden absolute top-full mt-2 right-0 bg-card border border-white/10 rounded-2xl shadow-2xl p-2 min-w-48 z-50 filter-dropdown">
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm font-bold uppercase tracking-wide"
+                                data-filter="level" data-value="all">All Levels</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="level" data-value="beginner">Beginner</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="level" data-value="intermediate">Intermediate</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="level" data-value="advanced">Advanced</button>
+                        </div>
+                    </div>
+
+                    <!-- Duration Filter -->
+                    <div class="relative">
+                        <button id="duration-filter-btn"
+                            class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 hover:border-accent/30 transition-all">
+                            <i class="fas fa-clock text-accent"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Duration</span>
+                            <i class="fas fa-chevron-down text-[8px]"></i>
+                        </button>
+                        <div id="duration-filter-menu"
+                            class="hidden absolute top-full mt-2 right-0 bg-card border border-white/10 rounded-2xl shadow-2xl p-2 min-w-48 z-50 filter-dropdown">
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm font-bold uppercase tracking-wide"
+                                data-filter="duration" data-value="all">All Durations</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="duration" data-value="4-8">4-8 Weeks</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="duration" data-value="8-12">8-12 Weeks</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="duration" data-value="12+">12+ Weeks</button>
+                        </div>
+                    </div>
+
+                    <!-- Goal Filter -->
+                    <div class="relative">
+                        <button id="goal-filter-btn"
+                            class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 hover:border-accent/30 transition-all">
+                            <i class="fas fa-bullseye text-accent"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Goal</span>
+                            <i class="fas fa-chevron-down text-[8px]"></i>
+                        </button>
+                        <div id="goal-filter-menu"
+                            class="hidden absolute top-full mt-2 right-0 bg-card border border-white/10 rounded-2xl shadow-2xl p-2 min-w-48 z-50 filter-dropdown">
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm font-bold uppercase tracking-wide"
+                                data-filter="goal" data-value="all">All Goals</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="goal" data-value="strength">Strength Building</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="goal" data-value="fat-loss">Fat Loss</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="goal" data-value="diabetic">Diabetic Control</button>
+                            <button
+                                class="filter-option w-full text-left px-4 py-3 rounded-xl hover:bg-surface transition-all text-sm"
+                                data-filter="goal" data-value="wellness">Wellness</button>
+                        </div>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <button id="reset-filters"
+                        class="px-6 py-4 rounded-2xl border border-accent/30 hover:bg-accent hover:text-black transition-all">
+                        <i class="fas fa-redo-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="py-32 px-8">
+        <div class="container mx-auto">
+            <div id="programs-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Program Card 1: Diabetic Reversal Protocol -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="intermediate"
+                    data-duration="12" data-goal="diabetic">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Diabetic Reversal">
+                        <div class="absolute top-6 right-6">
+                            <span
+                                class="bg-accent text-black px-4 py-2 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</span>
+                        </div>
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Intermediate</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">12
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Diabetic <span
+                            class="text-accent">Reversal</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Clinical protocol targeting insulin resistance through structured training and metabolic
+                        optimization.
+                    </p>
+
+                    <!-- Features -->
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Glucose stability protocols</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Insulin sensitivity training</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Daily monitoring systems</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Nutritional optimization</span>
+                        </li>
+                    </ul>
+
+                    <!-- Stats -->
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">850+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">4.9</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="diabetic">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program Card 2: Home Performance Protocol -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="beginner" data-duration="8"
+                    data-goal="strength">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Home Performance">
+                        <div class="absolute top-6 right-6">
+                            <span
+                                class="bg-accent text-black px-4 py-2 rounded-full text-[8px] font-black uppercase tracking-widest">Trending</span>
+                        </div>
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Beginner</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">8
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Home <span
+                            class="text-accent">Performance</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Build functional strength and metabolic capacity with minimal equipment from home.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Bodyweight mastery</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Kettlebell protocols</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">HIIT conditioning</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Live remote sessions</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">1.2k+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">4.8</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="far fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="home">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program Card 3: Fat Loss Protocol -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="intermediate"
+                    data-duration="12" data-goal="fat-loss">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Fat Loss">
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Intermediate</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">12
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Fat Loss <span
+                            class="text-accent">Protocol</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Sustainable fat reduction through strategic nutrition and metabolic conditioning.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Caloric optimization</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Muscle preservation</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Metabolic tracking</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Body composition analysis</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">2k+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">4.9</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="fat-loss">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program Card 4: Metabolic Wellness -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="beginner" data-duration="8"
+                    data-goal="wellness">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Wellness">
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Beginner</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">8
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Metabolic <span
+                            class="text-accent">Wellness</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Foundation program for overall health optimization and lifestyle integration.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Habit formation</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Mobility training</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Sleep optimization</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Stress management</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">950+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">4.7</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="far fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="wellness">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program Card 5: Advanced Performance -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="advanced" data-duration="16"
+                    data-goal="strength">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Advanced Performance">
+                        <div class="absolute top-6 right-6">
+                            <span
+                                class="bg-accent text-black px-4 py-2 rounded-full text-[8px] font-black uppercase tracking-widest">Elite</span>
+                        </div>
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Advanced</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">16
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Advanced <span
+                            class="text-accent">Performance</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Elite-level training for experienced athletes seeking maximum performance gains.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Periodization protocols</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Performance testing</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Recovery optimization</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Competition prep</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">450+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">5.0</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="advanced">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Program Card 6: Nutrition Optimization -->
+                <div class="program-card glass-card p-8 rounded-[3rem] reveal" data-level="beginner" data-duration="6"
+                    data-goal="wellness">
+                    <div class="relative h-64 mb-8 rounded-3xl overflow-hidden img-hover">
+                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800"
+                            class="w-full h-full object-cover" alt="Nutrition">
+                        <div class="absolute bottom-6 left-6 flex gap-3">
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">Beginner</span>
+                            <span
+                                class="bg-black/80 backdrop-blur-md text-accent px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest">6
+                                Weeks</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold italic uppercase mb-4 tracking-tight">Nutrition <span
+                            class="text-accent">Optimization</span></h3>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6 italic">
+                        Evidence-based nutrition coaching for metabolic health and sustainable results.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Macro calculations</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Meal planning</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Supplement guidance</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <span class="text-xs text-white/70">Habit coaching</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mb-6">
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">1.5k+</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Completed</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-2xl font-display font-bold">4.8</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Rating</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="fas fa-star text-accent text-xs"></i>
+                            <i class="far fa-star text-accent text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button
+                            class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn program-details-btn"
+                            data-program="nutrition">
+                            View Details
+                        </button>
+                        <a href="/appoitment"
+                            class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all text-center">
+                            Enroll
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="hidden text-center py-20">
+                <i class="fas fa-search text-6xl text-white/20 mb-6"></i>
+                <h3 class="text-2xl font-display font-bold text-white/60 mb-4">No Programs Found</h3>
+                <p class="text-white/40">Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Stories Section -->
+    <section class="py-32 px-8 bg-card/30">
+        <div class="container mx-auto">
+            <div class="text-center mb-20 reveal">
+                <p class="text-accent text-[10px] font-bold tracking-[0.5em] uppercase mb-4 italic">Client
+                    Transformations</p>
+                <h2 class="text-5xl md:text-7xl font-display font-bold italic tracking-tighter uppercase">Success <span
+                        class="text-white/30 not-italic">Stories.</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Success Story 1 -->
+                <div class="glass-card p-10 rounded-[3rem] reveal">
+                    <div class="flex items-center gap-6 mb-8">
+                        <img src="./assets/user-icon.png"
+                            class="w-20 h-20 rounded-full object-cover border-2 border-accent" alt="Client">
+                        <div>
+                            <h4 class="text-xl font-display font-bold italic">Rahul Kumar</h4>
+                            <p class="text-white/60 text-sm">Diabetic Reversal Program</p>
+                            <div class="flex gap-1 mt-2">
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 leading-relaxed italic mb-8">
+                        "Reduced HbA1c from 8.5 to 5.9 in 12 weeks. The structured approach to training and nutrition
+                        completely transformed my metabolic health. No more medication!"
+                    </p>
+                    <div class="flex items-center gap-8 border-t border-white/5 pt-6">
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">-3.6</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">HbA1c Points</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">12</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Weeks</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">100%</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Med-Free</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Story 2 -->
+                <div class="glass-card p-10 rounded-[3rem] reveal">
+                    <div class="flex items-center gap-6 mb-8">
+                        <img src="./assets/user-icon.png"
+                            class="w-20 h-20 rounded-full object-cover border-2 border-accent" alt="Client">
+                        <div>
+                            <h4 class="text-xl font-display font-bold italic">Priya Sharma</h4>
+                            <p class="text-white/60 text-sm">Fat Loss Program</p>
+                            <div class="flex gap-1 mt-2">
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                                <i class="fas fa-star text-accent text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 leading-relaxed italic mb-8">
+                        "Lost 18kg while gaining strength. The home-based training was perfect for my schedule. The
+                        results are sustainable and the coaching was exceptional!"
+                    </p>
+                    <div class="flex items-center gap-8 border-t border-white/5 pt-6">
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">-18</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">kg Lost</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">12</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Weeks</p>
+                        </div>
+                        <div>
+                            <p class="text-accent text-3xl font-display font-bold">+25%</p>
+                            <p class="text-[8px] text-white/40 uppercase tracking-widest">Strength</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-accent/10 to-surface"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl md:text-7xl font-display font-bold italic tracking-tighter uppercase mb-8 reveal">
+                    Ready to <span class="text-accent">Transform?</span>
+                </h2>
+                <p class="text-xl text-white/60 leading-relaxed mb-12 italic reveal delay-100">
+                    Choose your program and begin your journey to optimal metabolic health. Our expert coaches are ready
+                    to guide you every step of the way.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center reveal delay-200">
+                    <a href="/appoitment"
+                        class="bg-accent text-black px-12 py-6 rounded-full font-black text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all magnetic-btn">
+                        Book Free Consultation
+                    </a>
+                    <a href="/home/#about-coach"
+                        class="px-12 py-6 border border-accent/30 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-accent hover:text-black transition-all">
+                        Meet Your Coach
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============= FOOTER ============= -->
+    <footer
+        class="bg-[#020202] pt-24 sm:pt-32 pb-8 sm:pb-12 px-4 sm:px-8 border-t border-white/5 relative overflow-hidden"
+        role="contentinfo">
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent">
+        </div>
+
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-12 gap-6 sm:gap-12 mb-16 sm:mb-20">
+
+                <div class="col-span-12 lg:col-span-4 space-y-6 sm:space-y-8">
+                    <div class="flex items-center gap-3 group cursor-pointer" onclick="backToHome()">
+                        <div class="w-10 sm:w-12 h-[2px] bg-accent transition-all group-hover:w-14 sm:group-hover:w-16">
+                        </div>
+                        <span
+                            class="font-display font-bold text-2xl sm:text-3xl tracking-tighter italic text-accent uppercase">Archana<span
+                                class="text-white">Sah</span></span>
+                    </div>
+                    <p class="text-white/40 text-sm leading-relaxed italic max-w-sm">
+                        Your online fitness platform helping people control diabetes, lose weight, and live healthier
+                        through home-based workouts and expert coaching.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                        </span>
+                        <span
+                            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-accent/60 italic">We're
+                            Open: Accepting New Clients</span>
+                    </div>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Quick Links</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/about-coach"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Coach
+                                Profile</a></li>
+                        <li><a href="/programs/"
+                                class="text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 w-4 h-[1px] bg-accent transition-all"></span>Our Programs</a></li>
+                        <li><a href="/home/#stories"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Members
+                                Stories</a></li>
+                        <li><a href="/home/#advice"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Tips &
+                                Advice</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-6 md:col-span-3 lg:col-span-2">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Legal</h4>
+                    <ul class="space-y-3 sm:space-y-4 text-sm text-white/30 font-medium italic">
+                        <li><a href="/privacy-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Privacy
+                                Policy</a></li>
+                        <li><a href="/terms-and-conditions"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Terms of
+                                Service</a></li>
+                        <li><a href="/refund-policy"
+                                class="hover:text-accent transition-colors duration-300 flex items-center gap-2 group"><span
+                                    class="w-0 group-hover:w-4 h-[1px] bg-accent transition-all"></span>Refund
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div
+                    class="col-span-12 lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <h4
+                        class="text-white font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.4em] mb-6 sm:mb-8 italic">
+                        Connect With Us</h4>
+
+                    <div class="flex justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <a href="https://www.facebook.com/archana.sah.524"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.instagram.com/archusah9"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@fitwitharchu"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="YouTube">
+                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://in.linkedin.com/in/archana-kumari-sah-b6b8a3165"
+                            class="w-10 sm:w-12 h-10 sm:h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">
+                        Contact: info@archonglyca.com</p>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-white/5 pt-8 sm:pt-12 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
+                <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">© 2025
+                    ARCHON GLYCA. All Rights Reserved.</p>
+                <p class="text-[9px] sm:text-[10px] text-white/10 italic">Helping you get fit and healthy from home</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ========= Whatsapp Floating Icon========= -->
+    <a href="https://wa.me/7575918463" target="_blank" class="whatsapp-float group"
+        aria-label="Chat with us on WhatsApp">
+        <div
+            class="whatsapp-content flex items-center gap-3 bg-accent p-3 sm:p-4 rounded-full shadow-[0_10px_30px_rgba(212,255,0,0.3)] transition-all duration-500">
+            <span
+                class="max-w-0 overflow-hidden whitespace-nowrap text-black font-black text-[10px] uppercase tracking-widest max-w-[150px] transition-all duration-500 ease-in-out">
+                Chat with Coach
+            </span>
+            <div class="w-6 h-6 flex items-center justify-center">
+                <i class="fab fa-whatsapp text-2xl text-black"></i>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-accent rounded-full -z-10 animate-ping opacity-20 group-hover:opacity-40"></div>
+    </a>
+
+
+    <!-- Program Details Modal -->
+    <div id="program-modal" class="hidden fixed inset-0 z-[150] overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20">
+            <div class="fixed inset-0 bg-surface/90 backdrop-blur-md transition-opacity" id="modal-backdrop"></div>
+
+            <div
+                class="inline-block align-bottom bg-card rounded-[3rem] text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full border border-white/5 modal-enter">
+                <div class="bg-card px-10 pt-10 pb-6">
+                    <div class="flex items-start justify-between mb-8">
+                        <h3 id="modal-title" class="text-4xl font-display font-bold italic text-white"></h3>
+                        <button id="close-modal" class="text-white/40 hover:text-accent transition-colors">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+
+                    <div id="modal-content" class="space-y-6">
+                        <!-- Content will be dynamically inserted -->
+                    </div>
+                </div>
+
+                <div class="bg-surface/30 px-10 py-6 flex gap-4">
+                    <a href="/appoitment"
+                        class="flex-1 bg-accent text-black px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all text-center">
+                        Enroll Now
+                    </a>
+                    <button id="modal-close-btn"
+                        class="flex-1 border border-accent/30 text-accent px-6 py-4 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-accent hover:text-black transition-all">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============= 01: CONSTANTS & STATE =============
+        const API_URL = "https://archon-glyca-backend.vercel.app";
+        let modalTimer;
+
+        // Filter State
+        let activeFilters = {
+            level: 'all',
+            duration: 'all',
+            goal: 'all',
+            search: ''
+        };
+
+        // ============= 02: INITIALIZATION =============
+        window.addEventListener('load', () => {
+            updateNavbarAuth(); // Unified logic from /home/
+
+            const loader = document.getElementById('loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 700);
+                    document.body.classList.remove('preload');
+                }, 1000);
+            }
+        });
+
+        // ============= 03: UNIFIED AUTHENTICATION LOGIC =============
+        function updateNavbarAuth() {
+            const desktopAuth = document.getElementById('nav-auth-section');
+            const mobileDropdownAuth = document.getElementById('mobile-profile-options');
+            const sidebarAuth = document.getElementById('sidebar-auth-section');
+            const userId = localStorage.getItem('userId');
+
+            const dropdownMenuHTML = `
+            <a href="/profile" class="flex items-center gap-3 px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-accent hover:text-black transition-all">
+                <i class="fas fa-user text-[8px]"></i> My Profile
+            </a>
+            <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-red-500 hover:bg-white/5 transition-all border-t border-white/5">
+                <i class="fas fa-sign-out-alt text-[8px]"></i> Logout
+            </button>
+        `;
+
+            const profileIconTriggerHTML = `
+            <div class="relative group cursor-pointer py-2">
+                <div class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center bg-accent/5 text-accent hover:border-accent transition-all">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </div>
+                <div class="hidden lg:block absolute top-full right-0 mt-2 w-48 bg-card border border-white/10 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right z-[150]">
+                    ${dropdownMenuHTML}
+                </div>
+            </div>
+        `;
+
+            if (userId) {
+                if (desktopAuth) desktopAuth.innerHTML = profileIconTriggerHTML;
+                if (mobileDropdownAuth) mobileDropdownAuth.innerHTML = dropdownMenuHTML;
+                if (sidebarAuth) sidebarAuth.innerHTML = '';
+            } else {
+                const loginBtnHTML = `<a href="/login" class="px-8 py-3 border border-accent/30 rounded-full hover:bg-accent hover:text-black text-[10px] font-bold uppercase tracking-widest transition-all">Login</a>`;
+                if (desktopAuth) desktopAuth.innerHTML = loginBtnHTML;
+                if (sidebarAuth) sidebarAuth.innerHTML = `<a href="/login" class="block w-full py-4 text-center border border-accent/20 rounded-full text-accent font-black uppercase text-xs">Sign In</a>`;
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            window.location.reload();
+        }
+
+        // ============= 04: FILTER & SEARCH LOGIC =============
+        const programCards = document.querySelectorAll('.program-card');
+        const noResults = document.getElementById('no-results');
+        const searchInput = document.getElementById('search-programs');
+
+        // Dropdown Toggles
+        function setupFilterDropdown(btnId, menuId) {
+            const btn = document.getElementById(btnId);
+            const menu = document.getElementById(menuId);
+            if (btn && menu) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close others
+                    document.querySelectorAll('[id$="-filter-menu"]').forEach(m => {
+                        if (m !== menu) m.classList.add('hidden');
+                    });
+                    menu.classList.toggle('hidden');
+                });
+            }
+        }
+
+        setupFilterDropdown('level-filter-btn', 'level-filter-menu');
+        setupFilterDropdown('duration-filter-btn', 'duration-filter-menu');
+        setupFilterDropdown('goal-filter-btn', 'goal-filter-menu');
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('[id$="-filter-menu"]').forEach(m => m.classList.add('hidden'));
+        });
+
+        // Handle Option Selection
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                activeFilters[e.target.dataset.filter] = e.target.dataset.value;
+                applyFilters();
+            });
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                activeFilters.search = e.target.value.toLowerCase();
+                applyFilters();
+            });
+        }
+
+        document.getElementById('reset-filters')?.addEventListener('click', () => {
+            activeFilters = { level: 'all', duration: 'all', goal: 'all', search: '' };
+            if (searchInput) searchInput.value = '';
+            applyFilters();
+        });
+
+        function applyFilters() {
+            let visibleCount = 0;
+            programCards.forEach(card => {
+                const { level, duration, goal } = card.dataset;
+                const text = card.textContent.toLowerCase();
+                let show = true;
+
+                if (activeFilters.level !== 'all' && level !== activeFilters.level) show = false;
+                if (activeFilters.goal !== 'all' && goal !== activeFilters.goal) show = false;
+                if (activeFilters.search && !text.includes(activeFilters.search)) show = false;
+
+                if (activeFilters.duration !== 'all') {
+                    const dur = parseInt(duration);
+                    if (activeFilters.duration === '4-8' && (dur < 4 || dur > 8)) show = false;
+                    else if (activeFilters.duration === '8-12' && (dur < 8 || dur > 12)) show = false;
+                    else if (activeFilters.duration === '12+' && dur < 12) show = false;
+                }
+
+                card.classList.toggle('hidden', !show);
+                if (show) visibleCount++;
+            });
+            noResults?.classList.toggle('hidden', visibleCount > 0);
+        }
+
+        // ============= 05: PROGRAM MODAL SYSTEM =============
+        const programModal = document.getElementById('program-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+
+        const programDetails = {
+            diabetic: {
+                title: 'Diabetic Reversal Protocol',
+                description: 'Evidence-based clinical program targeting insulin resistance and glucose metabolism through structured training and nutrition optimization.',
+                details: [
+                    'Comprehensive metabolic assessment',
+                    'Insulin sensitivity training protocols',
+                    'Blood glucose monitoring systems',
+                    'Targeted nutritional intervention',
+                    'Weekly progress tracking',
+                    'Medical collaboration support'
+                ],
+                schedule: '4-5 sessions per week, 60-90 minutes each',
+                equipment: 'Minimal equipment required (kettlebells, resistance bands)',
+                results: 'Expected 2-4 point reduction in HbA1c levels over 12 weeks'
+            },
+            home: {
+                title: 'Home Performance Protocol',
+                description: 'Build functional strength and metabolic capacity with minimal equipment through scientifically designed home-based training.',
+                details: [
+                    'Bodyweight mastery progressions',
+                    'Kettlebell training protocols',
+                    'HIIT conditioning sessions',
+                    'Live remote coaching',
+                    'Movement quality assessment',
+                    'Progressive overload systems'
+                ],
+                schedule: '3-4 sessions per week, 45-60 minutes each',
+                equipment: 'Kettlebell, resistance bands, yoga mat',
+                results: 'Significant improvements in strength, endurance, and body composition'
+            },
+            'fat-loss': {
+                title: 'Fat Loss Protocol',
+                description: 'Sustainable fat reduction through strategic nutrition, metabolic conditioning, and muscle preservation strategies.',
+                details: [
+                    'Caloric and macro optimization',
+                    'Metabolic rate assessment',
+                    'Muscle preservation training',
+                    'Weekly body composition tracking',
+                    'Flexible nutrition coaching',
+                    'Habit formation systems'
+                ],
+                schedule: '3-4 sessions per week, 45-60 minutes each',
+                equipment: 'Basic home gym equipment or gym membership',
+                results: 'Expect 0.5-1kg per week fat loss while maintaining muscle mass'
+            },
+            wellness: {
+                title: 'Metabolic Wellness Program',
+                description: 'Foundation program for overall health optimization and sustainable lifestyle integration.',
+                details: [
+                    'Habit formation coaching',
+                    'Mobility and flexibility work',
+                    'Sleep optimization protocols',
+                    'Stress management techniques',
+                    'Nutrition fundamentals',
+                    'Movement practice integration'
+                ],
+                schedule: '3 sessions per week, 45 minutes each',
+                equipment: 'Minimal equipment (yoga mat, resistance bands)',
+                results: 'Improved energy, movement quality, and overall wellness markers'
+            },
+            advanced: {
+                title: 'Advanced Performance Protocol',
+                description: 'Elite-level training for experienced athletes seeking maximum performance gains and competitive readiness.',
+                details: [
+                    'Periodization and programming',
+                    'Performance testing protocols',
+                    'Advanced training techniques',
+                    'Competition preparation',
+                    'Recovery optimization',
+                    'Sport-specific conditioning'
+                ],
+                schedule: '5-6 sessions per week, 60-120 minutes each',
+                equipment: 'Full gym access required',
+                results: 'Measurable improvements in strength, power, and sport-specific performance'
+            },
+            nutrition: {
+                title: 'Nutrition Optimization Protocol',
+                description: 'Evidence-based nutrition coaching for metabolic health, performance, and sustainable results.',
+                details: [
+                    'Personalized macro calculations',
+                    'Meal planning and prep guidance',
+                    'Supplement protocol design',
+                    'Flexible dieting education',
+                    'Habit coaching systems',
+                    'Weekly nutrition consultations'
+                ],
+                schedule: 'Weekly check-ins and ongoing support',
+                equipment: 'Food scale and tracking app',
+                results: 'Sustainable nutrition habits and improved relationship with food'
+            }
+        };
+
+        document.querySelectorAll('.program-details-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const program = programDetails[e.target.dataset.program];
+                if (!program) return;
+
+                modalTitle.textContent = program.title;
+                modalContent.innerHTML = `
+                <p class="text-lg text-white/70 mb-8 italic">${program.description}</p>
+                <h4 class="text-xl font-display font-bold mb-6 uppercase">What's Included:</h4>
+                <ul class="space-y-4 mb-8">
+                    ${program.details.map(d => `<li class="flex items-center gap-4"><i class="fas fa-check-circle text-accent"></i><span class="text-white/70">${d}</span></li>`).join('')}
+                </ul>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="glass-card p-6 rounded-2xl"><h5 class="text-accent text-sm uppercase mb-2">Schedule</h5><p class="text-sm text-white/70">${program.schedule}</p></div>
+                    <div class="glass-card p-6 rounded-2xl"><h5 class="text-accent text-sm uppercase mb-2">Equipment</h5><p class="text-sm text-white/70">${program.equipment}</p></div>
+                </div>
+                <div class="bg-accent/10 border-l-4 border-accent p-6 rounded-2xl"><h5 class="text-accent text-sm uppercase mb-2">Results</h5><p class="text-sm text-white/80">${program.results}</p></div>
+            `;
+                programModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const closeActions = ['close-modal', 'modal-close-btn', 'modal-backdrop'];
+        closeActions.forEach(id => {
+            document.getElementById(id)?.addEventListener('click', () => {
+                programModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ============= 06: GLOBAL UI LOGIC =============
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const backdrop = document.getElementById('menuBackdrop');
+            const hamburger = document.getElementById('hamburger');
+
+            if (!menu || !backdrop) return;
+
+            // Check current state
+            const isOpen = menu.classList.contains('translate-x-0');
+
+            if (isOpen) {
+                // CLOSE MENU
+                menu.classList.replace('translate-x-0', '-translate-x-full');
+                backdrop.classList.add('hidden'); // Hide the dark overlay
+                if (hamburger) hamburger.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            } else {
+                // OPEN MENU
+                menu.classList.replace('-translate-x-full', 'translate-x-0');
+                backdrop.classList.remove('hidden'); // Show the dark overlay
+                if (hamburger) hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop background scrolling
+            }
+        }
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+            else nav.classList.remove('nav-scrolled');
+        });
+
+        // Mobile Profile Toggle
+        document.getElementById('profile-icon-btn')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('profile-dropdown')?.classList.toggle('hidden');
+        });
+        window.addEventListener('click', () => document.getElementById('profile-dropdown')?.classList.add('hidden'));
+
+        // Custom Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
