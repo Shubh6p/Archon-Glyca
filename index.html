@@ -464,8 +464,7 @@
                 <a href="#stories" class="hover:text-accent transition-all relative group">Members Stories</a>
                 <a href="/programs/" class="hover:text-accent transition-all relative group">Programs</a>
                 <a href="#advice" class="hover:text-accent transition-all relative group">Tips & Advice</a>
-                <a href="/contact-us" class="hover:text-accent transition-all relative group">Contact</a>
-                <a href="/feedback" class="hover:text-accent transition-all relative group">Feedback</a>
+                <a href="/contact-us" class="hover:text-accent transition-all relative group">Contact Us</a>
                 <a href="/about-us" class="hover:text-accent transition-all relative group">About Us</a>
             </div>
             <div id="nav-auth-section" class="flex items-center gap-4 border-l border-white/10 pl-6 xl:pl-10"></div>
@@ -512,8 +511,6 @@
                 <a href="/contact-us"
                     class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all">Contact
                     Us</a>
-                <a href="/feedback"
-                    class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all">Feedback</a>
                 <a href="/about-us"
                     class="p-4 text-lg font-bold uppercase tracking-widest text-white/60 hover:text-accent hover:bg-white/5 rounded-xl transition-all">About
                     Us</a>
@@ -658,16 +655,19 @@
                     <div
                         class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-y border-white/10 py-8 sm:py-10 uppercase font-bold tracking-widest text-center sm:text-left">
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="10">0+</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="7"
+                                data-suffix="+">0</p>
                             <p class="text-[9px] text-white/30">Years of Experience</p>
                         </div>
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="15000">0+</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="15000"
+                                data-suffix="+">0</p>
                             <p class="text-[9px] text-white/30">Lives Changed</p>
                         </div>
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="94">0%</p>
-                            <p class="text-[9px] text-white/30">Happy Clients</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="97"
+                                data-suffix="%">0</p>
+                            <p class="text-[9px] text-white/30">Success Rate</p>
                         </div>
                     </div>
 
@@ -785,10 +785,21 @@
             </div>
 
             <!-- Big Share Button at Bottom -->
-            <div class="mt-12 sm:mt-16 flex justify-center">
-                <a href="/feedback"
-                    class="magnetic-btn border border-accent/30 text-accent hover:bg-accent hover:text-black px-10 sm:px-14 py-5 sm:py-6 rounded-full font-black text-sm sm:text-base uppercase tracking-[0.2em] transition-all shadow-[0_0_20px_rgba(212,255,0,0.1)] hover:shadow-[0_0_40px_rgba(212,255,0,0.4)] hover:scale-105">
+            <div class="mt-10 sm:mt-14 flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-6">
+                <a href="/feedback-form" class="magnetic-btn border border-white/10 text-white/40 hover:border-accent hover:text-accent 
+                    px-8 sm:px-10 py-3 sm:py-4 
+                    rounded-full font-black text-xs sm:text-sm 
+                    uppercase tracking-[0.15em] 
+                    transition-all hover:scale-105">
                     Share Your Experience
+                </a>
+
+                <a href="/clients-feedback" class="magnetic-btn bg-accent text-black hover:shadow-[0_0_40px_rgba(212,255,0,0.4)] 
+                    px-8 sm:px-10 py-3 sm:py-4 
+                    rounded-full font-black text-xs sm:text-sm 
+                    uppercase tracking-[0.15em] 
+                    transition-all hover:scale-105">
+                    See More Stories
                 </a>
             </div>
         </section>
@@ -892,8 +903,11 @@
                             class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest opacity-60 italic mb-4 sm:mb-6">
                             Proven Results at Home</p>
 
-                        <p class="text-[6rem] sm:text-[8rem] md:text-[10rem] font-display font-bold leading-none -ml-2 tracking-tighter counter"
-                            data-target="94">0<span class="text-2xl sm:text-3xl">%</span></p>
+                        <p
+                            class="text-[6rem] sm:text-[8rem] md:text-[10rem] font-display font-bold leading-none -ml-2 tracking-tighter">
+                            <span class="counter" data-target="97">0</span>
+                            <span class="text-2xl sm:text-3xl">%</span>
+                        </p>
 
                         <p
                             class="text-[9px] sm:text-[11px] font-bold leading-tight uppercase opacity-80 mt-2 sm:mt-4 max-w-[200px]">
@@ -904,7 +918,7 @@
                     <div class="space-y-4 sm:space-y-6 relative z-10 pt-6 sm:pt-8 border-t border-black/10">
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
                             <div>
-                                <p class="text-2xl sm:text-3xl font-display font-bold italic leading-none">10k+</p>
+                                <p class="text-2xl sm:text-3xl font-display font-bold italic leading-none">15k+</p>
                                 <p class="text-[7px] sm:text-[8px] font-black uppercase tracking-widest opacity-60">
                                     Lives Changed</p>
                             </div>
@@ -1378,26 +1392,37 @@
 
         // ============= COUNTER ANIMATION =============
         const counters = document.querySelectorAll('.counter');
+
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+
                     const counter = entry.target;
                     const target = parseInt(counter.getAttribute('data-target'));
+                    const suffix = counter.getAttribute('data-suffix') || '';
                     const duration = 2000;
-                    const step = target / (duration / 16);
-                    let current = 0;
 
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
-                            requestAnimationFrame(updateCounter);
+                    let start = null;
+
+                    function animateCounter(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+
+                        const current = Math.min(
+                            Math.floor((progress / duration) * target),
+                            target
+                        );
+
+                        counter.textContent = current + suffix;
+
+                        if (progress < duration) {
+                            requestAnimationFrame(animateCounter);
                         } else {
-                            counter.textContent = target + (target === 100 ? '%' : '+');
+                            counter.textContent = target + suffix;
                         }
-                    };
+                    }
 
-                    updateCounter();
+                    requestAnimationFrame(animateCounter);
                     counterObserver.unobserve(counter);
                 }
             });

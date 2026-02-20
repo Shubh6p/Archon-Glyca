@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Feedback Moderation</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { accent: '#D4FF00', surface: '#050505', card: '#0F0F0F', border: '#1F1F1F' },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(15, 15, 15, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .status-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 99px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-pending {
+            background: rgba(255, 191, 0, 0.1);
+            color: #FFBF00;
+            border: 1px solid rgba(255, 191, 0, 0.2);
+        }
+
+        .status-approved {
+            background: rgba(212, 255, 0, 0.1);
+            color: #D4FF00;
+            border: 1px solid rgba(212, 255, 0, 0.2);
+        }
+
+        .status-declined {
+            background: rgba(255, 0, 0, 0.1);
+            color: #FF0000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tab-btn.active {
+            border-color: #D4FF00;
+            background: rgba(212, 255, 0, 0.1);
+            color: #D4FF00;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .form-input {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D4FF00;
+            box-shadow: 0 0 20px rgba(212, 255, 0, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 255, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Mobile Responsive Helpers */
+        @media (max-width: 640px) {
+            .mobile-hide {
+                display: none !important;
+            }
+
+            .mobile-show {
+                display: block !important;
+            }
+
+            .mobile-grid {
+                display: grid !important;
+            }
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .line-clamp-none {
+            -webkit-line-clamp: unset !important;
+            line-clamp: unset !important;
+            display: block !important;
+        }
+
+        /* Card styles for mobile */
+        .admin-card {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+
+    <script> // REDIRECTION GUARD: Must be at the very top of the head
+
+        if (!localStorage.getItem('adminToken')) {
+            window.location.href = 'login.html';
+        }
+
+    </script>
+</head>
+
+<body class="bg-surface text-white selection:bg-accent selection:text-black min-h-screen">
+    <!-- Admin Panel Content -->
+    <div id="admin-panel">
+        <!-- Navbar -->
+        <nav
+            class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-[2px] bg-accent"></div>
+                <h2 class="font-display font-bold text-xl tracking-tighter italic text-accent uppercase">ARCHON
+                    <span class="text-white">CONSOLE</span>
+                </h2>
+            </div>
+            <div class="flex items-center gap-6"><span id="admin-display-email"
+                    class="text-[10px] text-white/30 font-bold uppercase tracking-widest hidden sm:block"></span><button
+                    onclick="logout()"
+                    class="text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors">Logout
+                </button></div>
+        </nav>
+        <main class="p-4 sm:p-8 max-w-[1400px] mx-auto">
+            <header class="mb-12">
+                <h1 class="text-4xl sm:text-5xl font-display font-bold italic uppercase tracking-tighter">
+                    Feedback <span class="text-accent not-italic">Management.</span></h1>
+                <p class="text-white/40 text-sm mt-2 uppercase tracking-widest">Moderate User Submissions</p>
+            </header>
+            <!-- Tab Navigation -->
+            <div class="flex gap-4 mb-10 overflow-x-auto pb-2 no-scrollbar"><button onclick="switchTab('feedback')"
+                    id="tab-feedback"
+                    class="tab-btn active px-6 py-3 rounded-2xl glass-card text-[10px] font-bold uppercase tracking-widest transition-all hover:border-accent/40"><i
+                        class="fas fa-comments mr-2"></i>Feedback </button><button onclick="switchTab('appointments')"
+                    id="tab-appointments"
+                    class="tab-btn px-6 py-3 rounded-2xl glass-card text-[10px] font-bold uppercase tracking-widest transition-all hover:border-accent/40"><i
+                        class="fas fa-calendar-alt mr-2"></i>Appointments </button><button
+                    onclick="switchTab('contacts')" id="tab-contacts"
+                    class="tab-btn px-6 py-3 rounded-2xl glass-card text-[10px] font-bold uppercase tracking-widest transition-all hover:border-accent/40"><i
+                        class="fas fa-envelope mr-2"></i>Contact Inquiries </button></div>
+            <!-- Stats -->
+            <div id="stats-container" class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-accent">
+                    <p class="text-[10px] text-white/30 uppercase tracking-widest font-bold mb-2">Total
+                        feedback</p>
+                    <p id="stat-main" class="text-4xl font-display font-bold">0</p>
+                </div>
+                <!-- Other stats dynamic -->
+            </div>
+            <!-- Feedback Section -->
+            <div id="section-feedback" class="admin-section">
+                <div class="glass-card rounded-[2rem] overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="hidden sm:table-header-group">
+                                <tr class="bg-white/5 text-[10px] uppercase font-bold tracking-[0.2em] text-white/50">
+                                    <th class="p-6">User / Program</th>
+                                    <th class="p-6">Feedback</th>
+                                    <th class="p-6">Details</th>
+                                    <th class="p-6">Status</th>
+                                    <th class="p-6 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedback-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Appointments Section -->
+            <div id="section-appointments" class="admin-section hidden">
+                <div class="glass-card rounded-[2rem] overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="hidden sm:table-header-group">
+                                <tr class="bg-white/5 text-[10px] uppercase font-bold tracking-[0.2em] text-white/50">
+                                    <th class="p-6">Client / Phone</th>
+                                    <th class="p-6">Requirement</th>
+                                    <th class="p-6">Preferred Language</th>
+                                    <th class="p-6">Date</th>
+                                    <th class="p-6 text-right">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Contacts Section -->
+            <div id="section-contacts" class="admin-section hidden">
+                <div class="glass-card rounded-[2rem] overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="hidden sm:table-header-group">
+                                <tr class="bg-white/5 text-[10px] uppercase font-bold tracking-[0.2em] text-white/50">
+                                    <th class="p-6">Sender / Email</th>
+                                    <th class="p-6">Subject</th>
+                                    <th class="p-6">Message</th>
+                                    <th class="p-6">Method</th>
+                                    <th class="p-6 text-right">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contacts-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-20 bg-card/50 rounded-[2rem] mt-6"><i
+                    class="fas fa-inbox text-5xl text-white/10 mb-6"></i>
+                <p class="text-white/30 uppercase tracking-widest font-bold">No records
+                    found</p>
+            </div>
+        </main>
+    </div>
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal"
+        class="fixed inset-0 z-[400] bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-6">
+        <div class="glass-card w-full max-w-sm p-8 rounded-[2.5rem] text-center">
+            <div
+                class="w-16 h-16 bg-accent/10 border border-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
+                <i class="fas fa-question text-xl"></i>
+            </div>
+            <h3 class="text-xl font-display font-bold uppercase tracking-tighter mb-2">Are you sure?</h3>
+            <p id="confirm-text" class="text-white/40 text-sm mb-8 uppercase tracking-widest font-bold">This
+                action will be public.</p>
+            <div class="flex gap-4"><button onclick="closeConfirm()"
+                    class="flex-1 border border-white/10 text-white/40 font-black py-4 rounded-full uppercase text-[10px] tracking-widest hover:bg-white/5 transition-all">Cancel
+                </button><button id="confirm-yes-btn"
+                    class="flex-1 bg-accent text-black font-black py-4 rounded-full uppercase text-[10px] tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all">Confirm
+                </button></div>
+        </div>
+    </div>
+    <!-- Notification Toast -->
+    <div id="toast"
+        class="fixed bottom-8 right-8 z-[300] transform translate-y-20 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="glass-card bg-accent/10 border border-accent/20 px-6 py-4 rounded-2xl flex items-center gap-4">
+            <i class="fas fa-check-circle text-accent"></i>
+            <p id="toast-message" class="text-xs font-bold uppercase tracking-widest"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

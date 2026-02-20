@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Archon Console</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { accent: '#D4FF00', surface: '#050505', card: '#0F0F0F', border: '#1F1F1F' },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+        }
+
+        .glass-card {
+            background: rgba(15, 15, 15, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .form-input {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D4FF00;
+            box-shadow: 0 0 20px rgba(212, 255, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-white selection:bg-accent selection:text-black min-h-screen flex items-center justify-center p-6">
+
+    <div class="glass-card w-full max-w-md p-8 sm:p-12 rounded-[2.5rem] text-center">
+        <div
+            class="w-16 h-16 bg-accent/10 border border-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-8 text-accent">
+            <i class="fas fa-lock text-2xl"></i>
+        </div>
+        <h1 class="text-3xl font-display font-bold italic uppercase tracking-tighter mb-4">Admin <span
+                class="text-accent not-italic">Login.</span></h1>
+        <p class="text-white/40 text-sm mb-10 uppercase tracking-widest font-bold">Identity Verification Required
+        </p>
+
+        <form id="login-form" class="space-y-6">
+            <div id="email-step">
+                <div class="text-left">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Admin
+                        Email</label>
+                    <input type="email" id="admin-email" class="form-input w-full" placeholder="Enter Coach Email"
+                        required />
+                </div>
+            </div>
+
+            <div id="otp-step" class="hidden">
+                <div class="text-left">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Security
+                        OTP Code</label>
+                    <input type="text" id="admin-otp" class="form-input w-full tracking-[1em] text-center font-black"
+                        placeholder="000000" maxlength="6" />
+                </div>
+                <p class="mt-4 text-[9px] text-white/20 uppercase tracking-widest font-bold">Check your inbox for
+                    the
+                    access code</p>
+            </div>
+
+            <button type="submit" id="login-submit-btn"
+                class="w-full bg-accent text-black font-black py-4 rounded-full uppercase text-xs tracking-widest hover:shadow-[0_0_30px_rgba(212,255,0,0.3)] transition-all">
+                Request Access Code
+            </button>
+
+            <button type="button" id="back-to-email"
+                class="hidden w-full text-[10px] font-bold uppercase tracking-widest text-white/30 hover:text-white transition-colors mt-4">
+                Change Email
+            </button>
+        </form>
+        <p id="login-status"
+            class="hidden mt-6 text-accent text-[10px] uppercase font-bold tracking-widest animate-pulse">Sending
+            Code...</p>
+        <p id="login-error"
+            class="hidden mt-6 text-red-500 text-[10px] uppercase font-bold tracking-widest animate-pulse">Access
+            Denied: Restricted Area</p>
+    </div>
+
+    <!-- We'll use a specific login script -->
+    <script>
+        const API_BASE = 'https://archon-glyca-backend.vercel.app/api';
+        let isOtpStep = false;
+
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+        document.getElementById('back-to-email').addEventListener('click', resetLoginState);
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('admin-email').value;
+            const otpInput = document.getElementById('admin-otp').value;
+            const errorMsg = document.getElementById('login-error');
+            const statusMsg = document.getElementById('login-status');
+            const submitBtn = document.getElementById('login-submit-btn');
+
+            errorMsg.classList.add('hidden');
+            statusMsg.classList.add('hidden');
+
+            if (!isOtpStep) {
+                statusMsg.textContent = "Verifying Identity...";
+                statusMsg.classList.remove('hidden');
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch(`${API_BASE}/auth/admin/send-otp`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: emailInput })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        isOtpStep = true;
+                        document.getElementById('email-step').classList.add('hidden');
+                        document.getElementById('otp-step').classList.remove('hidden');
+                        document.getElementById('back-to-email').classList.remove('hidden');
+                        submitBtn.textContent = "Confirm Access";
+                        statusMsg.textContent = "Security Code Sent";
+                    } else {
+                        errorMsg.textContent = data.message || "Access Denied";
+                        errorMsg.classList.remove('hidden');
+                        statusMsg.classList.add('hidden');
+                    }
+                } catch (error) {
+                    errorMsg.textContent = "System Connection Error";
+                    errorMsg.classList.remove('hidden');
+                } finally {
+                    submitBtn.disabled = false;
+                }
+            } else {
+                statusMsg.textContent = "Authenticating...";
+                statusMsg.classList.remove('hidden');
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch(`${API_BASE}/auth/admin/verify-otp`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: emailInput, otp: otpInput })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        localStorage.setItem('adminToken', data.token); // Store secure JWT
+                        localStorage.setItem('adminEmail', emailInput);
+                        window.location.href = 'index.html'; // Redirect to dashboard
+                    } else {
+                        errorMsg.textContent = data.message || "Invalid Code";
+                        errorMsg.classList.remove('hidden');
+                        statusMsg.classList.add('hidden');
+                    }
+                } catch (error) {
+                    errorMsg.textContent = "System Connection Error";
+                    errorMsg.classList.remove('hidden');
+                } finally {
+                    submitBtn.disabled = false;
+                }
+            }
+        }
+
+        function resetLoginState() {
+            isOtpStep = false;
+            document.getElementById('email-step').classList.remove('hidden');
+            document.getElementById('otp-step').classList.add('hidden');
+            document.getElementById('back-to-email').classList.add('hidden');
+            document.getElementById('login-submit-btn').textContent = "Request Access Code";
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('login-status').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
