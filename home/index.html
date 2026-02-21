@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&family=Space+Grotesk:wght@300;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../whatsapp.css">
+    <link rel="stylesheet" href="./whatsapp.css">
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
 
     <script>
@@ -582,7 +582,7 @@
                     </a>
 
                     <!-- Secondary CTA -->
-                    <a href="#programs" data-testid="explore-services-btn" class="magnetic-btn
+                    <a href="/programs" data-testid="explore-services-btn" class="magnetic-btn
                 w-full sm:w-auto text-center
                 px-8 sm:px-10 md:px-12 py-3 sm:py-4 md:py-5
                 border border-white/10 rounded-full
@@ -655,16 +655,19 @@
                     <div
                         class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-y border-white/10 py-8 sm:py-10 uppercase font-bold tracking-widest text-center sm:text-left">
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="10">0+</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="7"
+                                data-suffix="+">0</p>
                             <p class="text-[9px] text-white/30">Years of Experience</p>
                         </div>
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="15000">0+</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="15000"
+                                data-suffix="+">0</p>
                             <p class="text-[9px] text-white/30">Lives Changed</p>
                         </div>
                         <div>
-                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="97">0%</p>
-                            <p class="text-[9px] text-white/30">Happy Clients</p>
+                            <p class="text-accent text-2xl sm:text-3xl mb-1 italic counter" data-target="97"
+                                data-suffix="%">0</p>
+                            <p class="text-[9px] text-white/30">Success Rate</p>
                         </div>
                     </div>
 
@@ -900,8 +903,11 @@
                             class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest opacity-60 italic mb-4 sm:mb-6">
                             Proven Results at Home</p>
 
-                        <p class="text-[6rem] sm:text-[8rem] md:text-[10rem] font-display font-bold leading-none -ml-2 tracking-tighter counter"
-                            data-target="97">0<span class="text-2xl sm:text-3xl">%</span></p>
+                        <p
+                            class="text-[6rem] sm:text-[8rem] md:text-[10rem] font-display font-bold leading-none -ml-2 tracking-tighter">
+                            <span class="counter" data-target="97">0</span>
+                            <span class="text-2xl sm:text-3xl">%</span>
+                        </p>
 
                         <p
                             class="text-[9px] sm:text-[11px] font-bold leading-tight uppercase opacity-80 mt-2 sm:mt-4 max-w-[200px]">
@@ -1263,7 +1269,7 @@
                     </div>
 
                     <p class="text-[9px] sm:text-[10px] text-white/20 uppercase tracking-widest font-bold italic">
-                        Contact: info@archonglyca.com</p>
+                        Contact: archonglyca@gmail.com</p>
                 </div>
             </div>
 
@@ -1386,26 +1392,37 @@
 
         // ============= COUNTER ANIMATION =============
         const counters = document.querySelectorAll('.counter');
+
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+
                     const counter = entry.target;
                     const target = parseInt(counter.getAttribute('data-target'));
+                    const suffix = counter.getAttribute('data-suffix') || '';
                     const duration = 2000;
-                    const step = target / (duration / 16);
-                    let current = 0;
 
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.floor(current) + (target === 100 ? '%' : '+');
-                            requestAnimationFrame(updateCounter);
+                    let start = null;
+
+                    function animateCounter(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+
+                        const current = Math.min(
+                            Math.floor((progress / duration) * target),
+                            target
+                        );
+
+                        counter.textContent = current + suffix;
+
+                        if (progress < duration) {
+                            requestAnimationFrame(animateCounter);
                         } else {
-                            counter.textContent = target + (target === 100 ? '%' : '+');
+                            counter.textContent = target + suffix;
                         }
-                    };
+                    }
 
-                    updateCounter();
+                    requestAnimationFrame(animateCounter);
                     counterObserver.unobserve(counter);
                 }
             });
