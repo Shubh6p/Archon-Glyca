@@ -135,7 +135,7 @@ if (feedbackForm) {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('https://archon-glyca-backend.vercel.app/api/feedback-form/submit', {
+            const response = await fetch('https://archon-glyca-backend.vercel.app/api/feedback/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
